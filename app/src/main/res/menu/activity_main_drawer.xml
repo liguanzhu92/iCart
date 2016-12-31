@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_category"
+            android:icon="@drawable/menu_category"
+            android:title="Category" />
+        <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/menu_profile"
+                android:title="Profile" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/menu_wallet"
+            android:title="Wallet" />
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/menu_order"
+            android:title="History" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                    android:id="@+id/nav_help"
+                    android:icon="@drawable/menu_help"
+                    android:title="Help" />
+            <item
+                android:id="@+id/nav_rate"
+                android:icon="@drawable/menu_rate"
+                android:title="Rate" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/menu_logout"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
+</menu>

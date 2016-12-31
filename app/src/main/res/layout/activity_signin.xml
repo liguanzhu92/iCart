@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_signin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.example.guanzhuli.icart.SignInActivity">
+    <ImageView
+            android:layout_width="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icart"/>
+    <EditText
+            android:id="@+id/Sign_in_username"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:hint="Username"
+            android:layout_height="wrap_content"/>
+    <EditText
+            android:id="@+id/sign_in_password"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:hint="Password"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:clickable="true"
+            android:textStyle="italic"
+            android:layout_gravity="end"
+            android:text="Forgot password?"
+            android:textSize="12dp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <Button
+            android:layout_gravity="center"
+            android:id="@+id/button_sign_in"
+            android:text="login"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:backgroundTint="@color/colorButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

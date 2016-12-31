@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <!-- search -->
+    <LinearLayout
+            android:id="@+id/linear1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:src="@drawable/search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+        <EditText
+                android:hint="Search..."
+                android:layout_width="0dp"
+                android:layout_weight="11"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/search"
+                android:text="Search"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_below="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <!-- page view to swipe  -->
+        <android.support.v4.view.ViewPager
+                android:id="@+id/imagePage"
+                android:layout_below="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_weight="11"
+                android:layout_height="0dp"/>
+        <!-- tab layout (1. top seller; 2, category)  -->
+        <android.support.design.widget.TabLayout
+                android:layout_weight="2"
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+        <!-- View pager to swipe views -->
+        <android.support.v4.view.ViewPager
+                android:layout_weight="19"
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/viewPage1"/>
+    </LinearLayout>
+</RelativeLayout>

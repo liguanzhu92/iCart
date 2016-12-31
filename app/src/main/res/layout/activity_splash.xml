@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.guanzhuli.icart.SplashActivity">
+    <!--animation: cart from left to right-->
+    <ImageView
+            android:src="@drawable/welcome"
+            android:id="@+id/splash_background"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+</RelativeLayout>

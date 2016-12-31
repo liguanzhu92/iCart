@@ -18,6 +18,10 @@
             android:id="@+id/nav_order"
             android:icon="@drawable/menu_order"
             android:title="History" />
+        <item
+                android:id="@+id/nav_favorite"
+                android:icon="@drawable/menu_favourite"
+                android:title="Favorite" />
 
     </group>
 

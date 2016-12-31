@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_marginRight="@dimen/activity_horizontal_margin"
+              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="Order details"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="Order ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/item_image_sample"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="ItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="ItemQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="FinalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="OrderStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button
+                android:textColor="@color/icons"
+                android:text="track"
+                android:backgroundTint="@color/colorButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:textColor="@color/icons"
+                android:text="cancel"
+                android:backgroundTint="@color/colorButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:textColor="@color/icons"
+                android:text="return"
+                android:backgroundTint="@color/colorButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

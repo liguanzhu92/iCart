@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        if(findViewById(R.id.main_fragment_container) != null) {
+        /*if(findViewById(R.id.main_fragment_container) != null) {
             CategoryFragment categoryFragment = new CategoryFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, categoryFragment).commit();
-        }
+        }*/
     }
 
     @Override

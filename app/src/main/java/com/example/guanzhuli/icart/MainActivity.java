@@ -1,5 +1,6 @@
 package com.example.guanzhuli.icart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.guanzhuli.icart.Fragment.CategoryFragment;
+import com.example.guanzhuli.icart.Fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,8 +30,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(i);
             }
         });
 
@@ -46,10 +48,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        /*if(findViewById(R.id.main_fragment_container) != null) {
-            CategoryFragment categoryFragment = new CategoryFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, categoryFragment).commit();
-        }*/
+        if(findViewById(R.id.main_fragment_container) != null) {
+            HomeFragment homeFragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();
+        }
     }
 
     @Override
@@ -92,10 +94,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_home:
+                HomeFragment homeFragment = new HomeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();
                 break;
             case R.id.nav_category:
                 CategoryFragment categoryFragment = new CategoryFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.main_fragment_container, categoryFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, categoryFragment).commit();
                 break;
             case R.id.nav_profile:
                 break;

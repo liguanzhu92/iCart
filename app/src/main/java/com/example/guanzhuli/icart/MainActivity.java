@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.example.guanzhuli.icart.Fragment.CategoryFragment;
 import com.example.guanzhuli.icart.Fragment.HomeFragment;
+import com.example.guanzhuli.icart.Fragment.SubCategoryFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,11 +60,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (getFragmentManager().getBackStackEntryCount() > 0 ) {
+            getFragmentManager().popBackStack();
+        }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -91,15 +98,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         switch (id) {
             case R.id.nav_home:
                 HomeFragment homeFragment = new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();
+                transaction.replace(R.id.main_fragment_container, homeFragment).commit();
                 break;
             case R.id.nav_category:
                 CategoryFragment categoryFragment = new CategoryFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, categoryFragment).commit();
+                transaction.addToBackStack(CategoryFragment.class.getName());
+                transaction.replace(R.id.main_fragment_container, categoryFragment).commit();
                 break;
             case R.id.nav_profile:
                 break;

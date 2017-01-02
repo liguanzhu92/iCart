@@ -20,6 +20,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
+import com.example.guanzhuli.icart.data.Category;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,24 +33,6 @@ public class CategoryFragment extends Fragment {
     public static final String CATEGORY_REQUEST_URL
             = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php";
     private RequestQueue mRequestQueue;
-
-    class Category {
-        String mImageUrl;
-        String mName;
-
-        Category(String imageUrl, String name) {
-            mImageUrl = imageUrl;
-            mName = name;
-        }
-
-        public String getImageUrl() {
-            return mImageUrl;
-        }
-
-        public String getName() {
-            return mName;
-        }
-    }
 
     class CategoryAdapter extends ArrayAdapter<Category> {
 
@@ -110,7 +93,7 @@ public class CategoryFragment extends Fragment {
 
             holder.getTextView().setText(rowItem.getName());
             NetworkImageView networkImageView =  holder.getImageView();
-            //networkImageView.setDefaultImageResId(R.drawable.lo); // image for loading...
+            //networkImageView.setDefaultImageResId(R.drawable.reload); // image for loading...
             networkImageView.setImageUrl(rowItem.getImageUrl(), mImageLoader);
 
             return convertView;
@@ -147,14 +130,27 @@ public class CategoryFragment extends Fragment {
                                 JSONObject item = categories.getJSONObject(i);
                                 String name = item.getString("CatagoryName");
                                 String imageUrl = item.getString("CatagoryImage");
-                                categoryList.add(new Category(imageUrl, name));
+                                String id = item.getString("Id");
+                                categoryList.add(new Category(imageUrl, name, id));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        CategoryAdapter adapter = new CategoryAdapter(getContext(), R.layout.category_listview_item, categoryList);
+                        final CategoryAdapter adapter = new CategoryAdapter(getContext(), R.layout.category_listview_item, categoryList);
                         ListView listView = (ListView) getView().findViewById(R.id.category_list);
                         listView.setAdapter(adapter);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Category category = (Category) adapterView.getItemAtPosition(i);
+                                SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.main_fragment_container, subCategoryFragment)
+                                        .addToBackStack(SubCategoryFragment.class.getName())
+                                        .commit();
+                            }
+                        });
                     }
                 }, new Response.ErrorListener() {
             @Override

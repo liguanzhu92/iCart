@@ -15,11 +15,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
+import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,76 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryFragment extends Fragment {
+    public static final String CATEGORY_ID_KEY = "categoryID";
 
     public static final String CATEGORY_REQUEST_URL
             = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php";
     private RequestQueue mRequestQueue;
 
-    class CategoryAdapter extends ArrayAdapter<Category> {
 
-        Context mContext;
-        ImageLoader mImageLoader;
-
-        public CategoryAdapter(Context context, int resource, List<Category> objects) {
-            super(context, resource, objects);
-            mContext = context;
-            mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-                private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-                public void putBitmap(String url, Bitmap bitmap) {
-                    mCache.put(url, bitmap);
-                }
-                public Bitmap getBitmap(String url) {
-                    return mCache.get(url);
-                }
-            });
-        }
-
-        private class ViewHolder {
-            NetworkImageView mImageView;
-            TextView mTextView;
-
-            public void setImageView(NetworkImageView mImageView) {
-                this.mImageView = mImageView;
-            }
-
-            public void setTextView(TextView mTextView) {
-                this.mTextView = mTextView;
-            }
-
-            public NetworkImageView getImageView() {
-                return mImageView;
-            }
-
-            public TextView getTextView() {
-                return mTextView;
-            }
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            Category rowItem = getItem(position);
-
-            LayoutInflater mInflater = (LayoutInflater) mContext
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.category_listview_item, null);
-                holder = new ViewHolder();
-                holder.setTextView((TextView) convertView.findViewById(R.id.list_view_category_text));
-                holder.setImageView((NetworkImageView) convertView.findViewById(R.id.list_view_category_img));
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            holder.getTextView().setText(rowItem.getName());
-            NetworkImageView networkImageView =  holder.getImageView();
-            //networkImageView.setDefaultImageResId(R.drawable.reload); // image for loading...
-            networkImageView.setImageUrl(rowItem.getImageUrl(), mImageLoader);
-
-            return convertView;
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -144,11 +80,15 @@ public class CategoryFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 Category category = (Category) adapterView.getItemAtPosition(i);
                                 SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString(CATEGORY_ID_KEY, category.getId());
+                                subCategoryFragment.setArguments(bundle);
                                 getActivity().getSupportFragmentManager()
                                         .beginTransaction()
                                         .replace(R.id.main_fragment_container, subCategoryFragment)
                                         .addToBackStack(SubCategoryFragment.class.getName())
                                         .commit();
+
                             }
                         });
                     }

@@ -10,5 +10,15 @@ public class CustomerCart {
     String mMobile;
     ArrayList<Item> mItemArrayList;
     int total;
+    CustomerCart(String name, String mobile, ArrayList<Item> items) {
+        this.mName = name;
+        this.mMobile = mobile;
+        this.mItemArrayList = items;
+        int total = 0;
+        for (int i  = 0; i < mItemArrayList.size(); i++) {
+            total += mItemArrayList.get(i).price * mItemArrayList.get(i).quantity;
+        }
+        this.total = total;
+    }
 }
 

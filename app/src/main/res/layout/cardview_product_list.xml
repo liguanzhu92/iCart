@@ -7,7 +7,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/item_list_image"
                 android:src="@drawable/item_image_sample"
                 android:layout_width="130dp"
                 android:adjustViewBounds="true"
@@ -18,14 +19,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <TextView
+                    android:id="@+id/item_list_name"
                     android:text="item name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/item_list_id"
                     android:text="item id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/item_list_price"
                     android:text="item price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

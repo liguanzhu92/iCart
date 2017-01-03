@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
@@ -12,6 +16,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         mButtonClose = (ImageView) findViewById(R.id.splash_close);
         mButtonClose.setOnClickListener(new View.OnClickListener() {
@@ -21,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        startAnimation();
         Thread timerThread = new Thread(){
             public void run(){
                 try{
@@ -34,5 +41,14 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         timerThread.start();
+        startAnimation();
+    }
+
+    private void startAnimation() {
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.move);
+        anim.reset();
+        ImageView l=(ImageView) findViewById(R.id.splash_cart);
+        l.clearAnimation();
+        l.startAnimation(anim);
     }
 }

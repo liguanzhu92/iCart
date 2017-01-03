@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 public class SPManipulation {
     public static final String PREFS_NAME = "USER";
-    public static final String PREFS_KEY = "USER_INFOR";
+    public static final String PREFS_USER_KEY = "USER_INFOR";
     SharedPreferences settings;
     SharedPreferences.Editor editor;
 
@@ -16,14 +16,26 @@ public class SPManipulation {
     public void save(Context context, String text) {
         settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
         editor = settings.edit(); //2
-        editor.putString(PREFS_KEY, text); //3
+        editor.putString(PREFS_USER_KEY, text); //3
+        editor.commit(); //4
+    }
+    public void save(Context context, String text, String prefs_key) {
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
+        editor = settings.edit(); //2
+        editor.putString(prefs_key, text); //3
         editor.commit(); //4
     }
 
     public String getValue(Context context) {
         String text;
         settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
-        text = settings.getString(PREFS_KEY, null); //2
+        text = settings.getString(PREFS_USER_KEY, null); //2
+        return text;
+    }
+    public String getValue(Context context, String prefs_key) {
+        String text;
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
+        text = settings.getString(prefs_key, null); //2
         return text;
     }
 
@@ -32,6 +44,13 @@ public class SPManipulation {
         editor = settings.edit();
 
         editor.clear();
+        editor.commit();
+    }
+    public void removeValue(Context context, String prefs_key) {
+        settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        editor = settings.edit();
+
+        editor.remove(prefs_key);
         editor.commit();
     }
 }

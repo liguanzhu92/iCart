@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        startAnimation();
         Thread timerThread = new Thread(){
             public void run(){
                 try{
@@ -34,5 +37,14 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         timerThread.start();
+        startAnimation();
+    }
+
+    private void startAnimation() {
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.move);
+        anim.reset();
+        ImageView l=(ImageView) findViewById(R.id.splash_cart);
+        l.clearAnimation();
+        l.startAnimation(anim);
     }
 }

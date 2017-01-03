@@ -2,18 +2,23 @@ package com.example.guanzhuli.icart.Fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
+import com.example.guanzhuli.icart.data.SPManipulation;
 
 import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
 
@@ -22,7 +27,9 @@ import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
  */
 public class ItemDetailFragment extends Fragment {
     private NetworkImageView mImageView;
-    private TextView mTextName, mTextId, mTextPrice, mTextDescription;
+    private TextView mTextName, mTextId, mTextPrice, mTextDescription, mTextQuant;
+    private ImageButton mButtonQuantAdd, mButtonQuantMinus;
+    private Button mButtonAddCart, mButtonChceckout;
     private int maxQuantity;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -60,5 +67,45 @@ public class ItemDetailFragment extends Fragment {
             mImageView.setImageUrl(bundle.getString(ITEM_IMAGEURL), mImageLoader);
         }
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mButtonQuantAdd = (ImageButton) getView().findViewById(R.id.button_quantity_add);
+        mButtonQuantMinus = (ImageButton) getView().findViewById(R.id.button_quantity_minus);
+        mTextQuant = (TextView) getView().findViewById(R.id.item_details_quant);
+        final int quant  = Integer.valueOf(mTextQuant.getText().toString());
+        mButtonQuantAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (quant == maxQuantity) {
+                    Toast.makeText(getContext(), "Exceed the storage", Toast.LENGTH_SHORT).show();
+                } else {
+                    int temp = quant + 1;
+                    mTextQuant.setText("" + temp);
+                }
+            }
+        });
+        mButtonQuantMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (quant == 0) {
+                    Toast.makeText(getContext(), "Invalid quantity", Toast.LENGTH_SHORT).show();
+                } else {
+                    int temp = quant -1;
+                    mTextQuant.setText("" + temp);
+                }
+            }
+        });
+        mButtonAddCart = (Button) getView().findViewById(R.id.add_cart);
+        String temp = new SPManipulation().getValue(getContext());
+        mButtonAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mButtonChceckout = (Button) getView().findViewById(R.id.checkout);
     }
 }

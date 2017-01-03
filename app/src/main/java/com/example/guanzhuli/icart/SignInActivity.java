@@ -3,6 +3,7 @@ package com.example.guanzhuli.icart;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,9 +12,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,19 +41,41 @@ public class SignInActivity extends AppCompatActivity {
                 final String mobile = mTextUsername.getText().toString();
                 String pwd = mTextPassword.getText().toString();
                 String Url = LOGIN_URL + "mobile=" + mobile + "&password=" + pwd;
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
-                        new Response.Listener<JSONObject>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, Url,
+                        new Response.Listener<String>() {
                             @Override
-                            public void onResponse(JSONObject jsonObject) {
+                            public void onResponse(String s) {
                                 try {
+                                    JSONObject jsonObject = new JSONObject(s);
                                     String msg = jsonObject.getString("msg");
                                     if (msg.contains("failure")) {
                                         mTextPassword.setText("");
-                                    } else {
-                                        new SPManipulation().save(SignInActivity.this, mobile);
+                                    }
+                                    return;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    JSONArray array = new JSONArray(s);
+                                    JSONObject obj = array.getJSONObject(0);
+                                    String msg = obj.getString("msg");
+                                    if (msg.contains("success")) {
+                                        // new SPManipulation().save(SignInActivity.this, s);
+                                        String username = obj.getString("UserName");
+                                        String email = obj.getString("UserEmail");
+                                        String mobile = obj.getString("UserMobile");
+                                        StringBuilder stringBuilder = new StringBuilder();
+                                        stringBuilder.append(username);
+                                        stringBuilder.append(" ");
+                                        stringBuilder.append(email);
+                                        stringBuilder.append(" ");
+                                        stringBuilder.append(mobile);
+                                        String temp = stringBuilder.toString();
+                                        new SPManipulation().save(SignInActivity.this, temp);
                                         Intent i = new Intent(SignInActivity.this, MainActivity.class);
                                         startActivity(i);
                                     }
+                                    return;
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -59,10 +83,10 @@ public class SignInActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(getApplicationContext(), "Volley Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "network error!", Toast.LENGTH_LONG).show();
                     }
                 });
-                mRequestQueue.add(jsonObjectRequest);
+                mRequestQueue.add(stringRequest);
             }
         });
         mTextSignUp = (TextView) findViewById(R.id.to_sign_up);

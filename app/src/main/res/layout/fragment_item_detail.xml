@@ -36,16 +36,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <ImageButton
+                android:id="@+id/button_quantity_minus"
                 android:layout_gravity="center_vertical"
                 android:layout_width="20dp"
                 android:layout_height="20dp" app:srcCompat="@drawable/minus_circle"/>
         <EditText
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/item_details_quant"
                 android:text="1"
                 android:layout_width="15dp"
                 android:layout_height="wrap_content"/>
         <ImageButton
+                android:id="@+id/button_quantity_add"
                 android:layout_gravity="center_vertical"
                 android:layout_width="20dp"
                 android:layout_height="20dp" app:srcCompat="@drawable/plus_circle"/>
@@ -61,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <Button
+                android:id="@+id/add_cart"
                 android:textColor="@color/icons"
                 android:text="Add Cart"
                 android:backgroundTint="@color/colorButton"
@@ -68,6 +72,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"/>
         <Button
+                android:id="@+id/checkout"
                 android:textColor="@color/icons"
                 android:text="Buy Now"
                 android:backgroundTint="@color/colorButton"

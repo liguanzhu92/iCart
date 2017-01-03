@@ -1,8 +1,6 @@
 package com.example.guanzhuli.icart;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +22,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?";
     Button mButtonSignIn;
-    TextView mTextUsername, mTextPassword;
+    TextView mTextUsername, mTextPassword, mTextSignUp;
     private RequestQueue mRequestQueue;
 
     @Override
@@ -65,6 +63,14 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
                 mRequestQueue.add(jsonObjectRequest);
+            }
+        });
+        mTextSignUp = (TextView) findViewById(R.id.to_sign_up);
+        mTextSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(i);
             }
         });
     }

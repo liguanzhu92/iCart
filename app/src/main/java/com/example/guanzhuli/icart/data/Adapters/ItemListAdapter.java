@@ -2,6 +2,7 @@ package com.example.guanzhuli.icart.data.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.example.guanzhuli.icart.Fragment.ItemListFragment;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Item;
 import java.util.List;
+
+import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
 
 /**
  * Created by Guanzhu Li on 1/1/2017.
@@ -52,15 +55,23 @@ public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ListViewHolder holder, int position) {
+    public void onBindViewHolder(ListViewHolder holder, final int position) {
         holder.mTextID.setText(mItemArrayList.get(position).getId());
         holder.mTextName.setText(mItemArrayList.get(position).getName());
         holder.mTextPrice.setText(Double.toString(mItemArrayList.get(position).getPrice()));
-        holder.mImageView.setImageUrl(mItemArrayList.get(position).getImageUrl(), mImageLoader);
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+        holder.mNetworkImageView.setImageUrl(mItemArrayList.get(position).getImageUrl(), mImageLoader);
+        holder.mNetworkImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ItemDetailFragment itemDetailFragment = new ItemDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(ITEM_ID, mItemArrayList.get(position).getId());
+                bundle.putString(ITEM_NAME, mItemArrayList.get(position).getName());
+                bundle.putString(ITEM_DES, mItemArrayList.get(position).getDestription());
+                bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageUrl());
+                bundle.putInt(ITEM_QUANTITY, mItemArrayList.get(position).getQuantity());
+                bundle.putDouble(ITEM_PRICE, mItemArrayList.get(position).getPrice());
+                itemDetailFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager()
                         .beginTransaction()
@@ -77,11 +88,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
     }
 }
 class ListViewHolder extends RecyclerView.ViewHolder {
-    NetworkImageView mImageView;
+    NetworkImageView mNetworkImageView;
     TextView mTextID, mTextName, mTextPrice;
     public ListViewHolder(View itemView) {
         super(itemView);
-        mImageView = (NetworkImageView) itemView.findViewById(R.id.item_list_image);
+        mNetworkImageView = (NetworkImageView) itemView.findViewById(R.id.item_list_image);
         mTextID = (TextView) itemView.findViewById(R.id.item_list_id);
         mTextName = (TextView) itemView.findViewById(R.id.item_list_name);
         mTextPrice = (TextView) itemView.findViewById(R.id.item_list_price);

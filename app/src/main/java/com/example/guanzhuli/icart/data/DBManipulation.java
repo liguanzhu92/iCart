@@ -32,7 +32,7 @@ public class DBManipulation {
         if (i > -1) {
             Toast.makeText(context, "Successfully", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Add Failed. Already existed", Toast.LENGTH_SHORT).show();
         }
     }
 

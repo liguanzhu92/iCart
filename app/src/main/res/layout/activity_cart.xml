@@ -16,27 +16,44 @@
             android:layout_width="match_parent" 
             android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
+            android:id="@+id/cart_container"
             android:layout_below="@+id/cart_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
     <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <Button
-                android:text="Continue"
-                android:backgroundTint="@color/colorButton"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" android:layout_alignParentStart="true">
+        <TextView
+                android:id="@+id/cart_total"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:textStyle="bold"
+                android:textSize="26dp"
+                android:text="Total:"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        <Button
-                android:text="checkout"
-                android:backgroundTint="@color/colorButton"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Button
+                    android:text="Continue"
+                    android:id="@+id/cart_continue"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            <Button
+                    android:text="checkout"
+                    android:id="@+id/cart_checkout"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
+
 
 </RelativeLayout>

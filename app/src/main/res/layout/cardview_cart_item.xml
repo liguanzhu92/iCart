@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:id="@+id/cart_item_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp" app:srcCompat="@drawable/item_image_sample"/>
+                android:layout_width="90dp"
+                android:layout_height="90dp" app:srcCompat="@drawable/item_image_sample"/>
         <LinearLayout
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:id="@+id/cart_item_delete"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:src="@drawable/close"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/cart_item_name"
                     android:text="item name in cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/cart_item_id"
                     android:text="item id in cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -38,21 +48,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <ImageButton
+                        android:id="@+id/cart_quant_minus"
                         android:layout_gravity="center_vertical"
                         android:layout_width="20dp"
                         android:layout_height="20dp" app:srcCompat="@drawable/minus_circle"/>
                 <TextView
+                        android:id="@+id/cart_item_quant"
                         android:text="1"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <ImageButton
+                        android:id="@+id/cart_quant_add"
                         android:layout_gravity="center_vertical"
                         android:layout_width="20dp"
                         android:layout_height="20dp" app:srcCompat="@drawable/plus_circle"/>
             </LinearLayout>
             <TextView
+                    android:id="@+id/cart_item_price"
                     android:text="item price in cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

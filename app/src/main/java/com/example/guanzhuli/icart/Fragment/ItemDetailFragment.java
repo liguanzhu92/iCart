@@ -1,6 +1,7 @@
 package com.example.guanzhuli.icart.Fragment;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
+import com.example.guanzhuli.icart.data.DBHelper;
+import com.example.guanzhuli.icart.data.DBManipulation;
+import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
 
 import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
@@ -33,6 +37,8 @@ public class ItemDetailFragment extends Fragment {
     private int maxQuantity;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    DBManipulation mDBManipulation;
+    private Item mItem;
 
     @Override
     public void onAttach(Context context) {
@@ -57,7 +63,9 @@ public class ItemDetailFragment extends Fragment {
         mTextPrice = (TextView) view.findViewById(R.id.item_details_price);
         mTextDescription = (TextView) view.findViewById(R.id.item_details_description);
         mImageView = (NetworkImageView)view.findViewById(R.id.item_details_image);
-        Bundle bundle = this.getArguments();
+        getBundleData();
+        setTextViewData();
+/*        Bundle bundle = this.getArguments();
         if (bundle != null) {
             maxQuantity = bundle.getInt(ITEM_QUANTITY);
             mTextId.setText("Item ID: " + bundle.getString(ITEM_ID));
@@ -65,8 +73,29 @@ public class ItemDetailFragment extends Fragment {
             mTextDescription.setText("Description: " +bundle.getString(ITEM_DES));
             mTextPrice.setText("Price: " + Double.toString(bundle.getDouble(ITEM_PRICE)));
             mImageView.setImageUrl(bundle.getString(ITEM_IMAGEURL), mImageLoader);
-        }
+        }*/
         return view;
+    }
+
+    private void setTextViewData() {
+        mTextId.setText("Item ID: " + mItem.getId());
+        mTextName.setText("Item Name: " + mItem.getName());
+        mTextDescription.setText("Description: " + mItem.getDestription());
+        mTextPrice.setText("Price: " + Double.toString(mItem.getPrice()));
+        mImageView.setImageUrl(mItem.getImageUrl(), mImageLoader);
+    }
+
+    private void getBundleData() {
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            maxQuantity = bundle.getInt(ITEM_QUANTITY);
+            mItem = new Item();
+            mItem.putName(bundle.getString(ITEM_NAME));
+            mItem.putId(bundle.getString(ITEM_ID));
+            mItem.putDestription(bundle.getString(ITEM_DES));
+            mItem.putPrice(bundle.getDouble(ITEM_PRICE));
+            mItem.putImageUrl(bundle.getString(ITEM_IMAGEURL));
+        }
     }
 
     @Override
@@ -75,37 +104,48 @@ public class ItemDetailFragment extends Fragment {
         mButtonQuantAdd = (ImageButton) getView().findViewById(R.id.button_quantity_add);
         mButtonQuantMinus = (ImageButton) getView().findViewById(R.id.button_quantity_minus);
         mTextQuant = (TextView) getView().findViewById(R.id.item_details_quant);
-        final int quant  = Integer.valueOf(mTextQuant.getText().toString());
+        // final int quant  = Integer.valueOf(mTextQuant.getText().toString());
         mButtonQuantAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (quant == maxQuantity) {
+                int quant  = Integer.valueOf(mTextQuant.getText().toString());
+                if (quant + 1 > maxQuantity) {
                     Toast.makeText(getContext(), "Exceed the storage", Toast.LENGTH_SHORT).show();
                 } else {
-                    int temp = quant + 1;
-                    mTextQuant.setText("" + temp);
+                    mTextQuant.setText(String.valueOf(quant + 1));
                 }
             }
         });
         mButtonQuantMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (quant == 0) {
-                    Toast.makeText(getContext(), "Invalid quantity", Toast.LENGTH_SHORT).show();
+                int quant  = Integer.valueOf(mTextQuant.getText().toString());
+                if (quant > 0) {
+                    mTextQuant.setText(String.valueOf(quant - 1));
                 } else {
-                    int temp = quant -1;
-                    mTextQuant.setText("" + temp);
+                    return;
                 }
             }
         });
         mButtonAddCart = (Button) getView().findViewById(R.id.add_cart);
-        String temp = new SPManipulation().getValue(getContext());
+
         mButtonAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // add current quant
+                mItem.putQuantity(Integer.valueOf(mTextQuant.getText().toString()));
+                String temp = new SPManipulation().getValue(getContext());
+                String[] test = temp.split(" ");
+                mDBManipulation = new DBManipulation(getContext(), test[0]+test[2]);
+                mDBManipulation.insert(mItem);
+            }
+        });
+        mButtonChceckout = (Button) getView().findViewById(R.id.checkout);
+        mButtonChceckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        mButtonChceckout = (Button) getView().findViewById(R.id.checkout);
     }
 }

@@ -13,20 +13,21 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static String TABLENAME;
     public static final String ITEMID = "id";
     public static final String ITEMNAME = "name";
+    public static final String IMAGEURL = "image_url";
     public static final String QUANTITY = "quantity";
     public static final String PRICE = "price";
     public static final int VERSION = 1;
 
-    public DBHelper(Context context, String username) {
+    public DBHelper(Context context, String table) {
         super(context, DATABASENAME, null, VERSION);
-        TABLENAME = username;
+        TABLENAME = table;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = " CREATE TABLE " + TABLENAME + "("
                 + ITEMID + " INTEGER PRIMARY KEY," + ITEMNAME + " TEXT,"
-                + QUANTITY + " INTEGER," + PRICE + " DECIMAL(10,2))";
+                + IMAGEURL + " TEXT," + QUANTITY + " INTEGER," + PRICE + " DECIMAL(10,2))";
         sqLiteDatabase.execSQL(createTable);
     }
 

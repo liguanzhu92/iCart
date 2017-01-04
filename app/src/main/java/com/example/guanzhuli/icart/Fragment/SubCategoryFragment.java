@@ -72,7 +72,8 @@ public class SubCategoryFragment extends Fragment {
                                 String name = item.getString("SubCatagoryName");
                                 String imageUrl = item.getString("CatagoryImage");
                                 String id = item.getString("Id");
-                                categoryList.add(new Category(imageUrl, name, id));
+                                String description = item.getString("SubCatagoryDiscription");
+                                categoryList.add(new Category(imageUrl, name, id, description));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

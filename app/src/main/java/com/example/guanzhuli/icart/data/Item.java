@@ -21,27 +21,27 @@ public class Item {
         this.quantity = quantity;
         this.price = price;
     }
-    public void putId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void putName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void putDestription(String description) {
+    public void setDescription(String description) {
         this.destription = description;
     }
 
-    public void putPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public void putQuantity(int quantity){
+    public void setQuantity(int quantity){
         this.quantity = quantity;
     }
 
-    public void putImageUrl(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -60,7 +60,7 @@ public class Item {
         return name;
     }
 
-    public String getDestription() {
+    public String getDescription() {
         return destription;
     }
 

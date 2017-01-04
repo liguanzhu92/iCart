@@ -1,7 +1,6 @@
 package com.example.guanzhuli.icart.Fragment;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
-import com.example.guanzhuli.icart.data.DBHelper;
 import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
@@ -80,7 +78,7 @@ public class ItemDetailFragment extends Fragment {
     private void setTextViewData() {
         mTextId.setText("Item ID: " + mItem.getId());
         mTextName.setText("Item Name: " + mItem.getName());
-        mTextDescription.setText("Description: " + mItem.getDestription());
+        mTextDescription.setText("Description: " + mItem.getDescription());
         mTextPrice.setText("Price: " + Double.toString(mItem.getPrice()));
         mImageView.setImageUrl(mItem.getImageUrl(), mImageLoader);
     }
@@ -90,11 +88,11 @@ public class ItemDetailFragment extends Fragment {
         if (bundle != null) {
             maxQuantity = bundle.getInt(ITEM_QUANTITY);
             mItem = new Item();
-            mItem.putName(bundle.getString(ITEM_NAME));
-            mItem.putId(bundle.getString(ITEM_ID));
-            mItem.putDestription(bundle.getString(ITEM_DES));
-            mItem.putPrice(bundle.getDouble(ITEM_PRICE));
-            mItem.putImageUrl(bundle.getString(ITEM_IMAGEURL));
+            mItem.setName(bundle.getString(ITEM_NAME));
+            mItem.setId(bundle.getString(ITEM_ID));
+            mItem.setDescription(bundle.getString(ITEM_DES));
+            mItem.setPrice(bundle.getDouble(ITEM_PRICE));
+            mItem.setImageUrl(bundle.getString(ITEM_IMAGEURL));
         }
     }
 
@@ -133,7 +131,7 @@ public class ItemDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // add current quant
-                mItem.putQuantity(Integer.valueOf(mTextQuant.getText().toString()));
+                mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
                 String temp = new SPManipulation().getValue(getContext());
                 String[] test = temp.split(" ");
                 mDBManipulation = new DBManipulation(getContext(), test[0]+test[2]);

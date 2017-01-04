@@ -73,7 +73,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 Bundle bundle = new Bundle();
                 bundle.putString(ITEM_ID, mItemArrayList.get(position).getId());
                 bundle.putString(ITEM_NAME, mItemArrayList.get(position).getName());
-                bundle.putString(ITEM_DES, mItemArrayList.get(position).getDestription());
+                bundle.putString(ITEM_DES, mItemArrayList.get(position).getDescription());
                 bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageUrl());
                 bundle.putInt(ITEM_QUANTITY, mItemArrayList.get(position).getQuantity());
                 bundle.putDouble(ITEM_PRICE, mItemArrayList.get(position).getPrice());

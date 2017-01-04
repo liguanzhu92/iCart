@@ -34,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
         String[] test = temp.split(" ");
         mDBManipulation = new DBManipulation(CartActivity.this, test[0]+test[2]);
         itemList = mDBManipulation.selectAll();
-        CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, itemList);
+        CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, itemList, this);
         recyclerView.setAdapter(cartListAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
@@ -57,6 +57,7 @@ public class CartActivity extends AppCompatActivity {
         //Set Total
         mTextTotal = (TextView) findViewById(R.id.cart_total);
         mTextTotal.setText(String.valueOf(calculateTotal(itemList)));
+
     }
 
     private double calculateTotal(List<Item> itemList) {

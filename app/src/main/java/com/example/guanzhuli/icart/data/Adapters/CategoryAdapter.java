@@ -43,22 +43,31 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
     private class ViewHolder {
         NetworkImageView mImageView;
-        TextView mTextView;
+        TextView mCategoryNameTextView;
+        TextView mCategoryDescTextView;
 
         public void setImageView(NetworkImageView mImageView) {
             this.mImageView = mImageView;
         }
 
-        public void setTextView(TextView mTextView) {
-            this.mTextView = mTextView;
+        public void setCategoryNameTextView(TextView mTextView) {
+            this.mCategoryNameTextView = mTextView;
         }
 
         public NetworkImageView getImageView() {
             return mImageView;
         }
 
-        public TextView getTextView() {
-            return mTextView;
+        public TextView getCategoryNameTextView() {
+            return mCategoryNameTextView;
+        }
+
+        public TextView getCategoryDescTextView() {
+            return mCategoryDescTextView;
+        }
+
+        public void setCategoryDescTextView(TextView categoryDescTextView) {
+            mCategoryDescTextView = categoryDescTextView;
         }
     }
 
@@ -72,14 +81,16 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.category_listview_item, null);
             holder = new ViewHolder();
-            holder.setTextView((TextView) convertView.findViewById(R.id.list_view_category_text));
+            holder.setCategoryNameTextView((TextView) convertView.findViewById(R.id.list_view_category_text));
+            holder.setCategoryDescTextView((TextView) convertView.findViewById(R.id.list_view_category_desc));
             holder.setImageView((NetworkImageView) convertView.findViewById(R.id.list_view_category_img));
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.getTextView().setText(rowItem.getName());
+        holder.getCategoryNameTextView().setText(rowItem.getName());
+        holder.getCategoryDescTextView().setText(rowItem.getDescription());
         NetworkImageView networkImageView =  holder.getImageView();
         //networkImageView.setDefaultImageResId(R.drawable.reload); // image for loading...
         networkImageView.setImageUrl(rowItem.getImageUrl(), mImageLoader);

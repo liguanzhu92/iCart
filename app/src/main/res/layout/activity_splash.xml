@@ -26,10 +26,11 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_alignParentTop="true" android:layout_alignParentEnd="true"/>
     <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="46dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:paddingBottom="128dp"
+            android:adjustViewBounds="true"
             android:id="@+id/splash_cart"
             android:src="@drawable/cart_outline"
             android:tint="@color/icons"

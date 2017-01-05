@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         mButtonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this,SignInActivity.class);
+                Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
                 startActivity(intent);
             }
         });
@@ -35,8 +35,9 @@ public class SplashActivity extends AppCompatActivity {
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    Intent intent = new Intent(SplashActivity.this,SignInActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         };

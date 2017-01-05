@@ -32,10 +32,10 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
     public static final String ITEM_DES = "description";
     public static final String ITEM_IMAGEURL = "image_url";
     private RequestQueue mRequestQueue;
-    Context mContext;
-    LayoutInflater inflater;
-    ImageLoader mImageLoader;
-    List<Item> mItemArrayList;
+    private Context mContext;
+    private LayoutInflater inflater;
+    private ImageLoader mImageLoader;
+    private List<Item> mItemArrayList;
 
     public ItemGridAdapter(Context context, List<Item> objects) {
         this.mContext = context;
@@ -49,7 +49,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 return mCache.get(url);
             }
         });
-        inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(mContext);
         mItemArrayList = objects;
     }
 

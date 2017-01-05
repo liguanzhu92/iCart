@@ -39,6 +39,24 @@ public class SPManipulation {
         return text;
     }
 
+    public String getMobile(Context context) {
+        String temp = getValue(context);
+        String[] s = temp.split(" ");
+        return s[2];
+    }
+
+    public String getEmail(Context context) {
+        String temp = getValue(context);
+        String[] s = temp.split(" ");
+        return s[1];
+    }
+
+    public String getName(Context context) {
+        String temp = getValue(context);
+        String[] s = temp.split(" ");
+        return s[0];
+    }
+
     public void clearSharedPreference(Context context) {
         settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         editor = settings.edit();

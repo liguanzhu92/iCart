@@ -1,13 +1,15 @@
 package com.example.guanzhuli.icart.data;
 
+import java.io.Serializable;
+
 /**
  * Created by Guanzhu Li on 12/31/2016.
  */
-public class Item {
+public class Item implements Serializable {
     String id;
     String name;
     String imageUrl;
-    String destription;
+    String description;
     int quantity;
     double price;
     public Item() {
@@ -17,7 +19,7 @@ public class Item {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
-        this.destription = description;
+        this.description = description;
         this.quantity = quantity;
         this.price = price;
     }
@@ -30,7 +32,7 @@ public class Item {
     }
 
     public void setDescription(String description) {
-        this.destription = description;
+        this.description = description;
     }
 
     public void setPrice(double price) {
@@ -61,7 +63,7 @@ public class Item {
     }
 
     public String getDescription() {
-        return destription;
+        return description;
     }
 
     public double getPrice() {

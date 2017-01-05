@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageView
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:src="@drawable/icart"
+            android:layout_width="match_parent" android:layout_height="200dp"/>
+    <TextView
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
+            android:text="Thank you!"
+            android:textSize="26dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:text="Yout order has benn placed!"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/success_view_order"
+                android:clickable="true"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="View Order"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/success_back_cart"
+            android:clickable="true"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="Back"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/success_home"
+                android:clickable="true"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="Home"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

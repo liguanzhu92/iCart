@@ -1,5 +1,6 @@
 package com.example.guanzhuli.icart;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.example.guanzhuli.icart.data.Adapters.CartListAdapter;
 import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.example.guanzhuli.icart.data.ShoppingCartList;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class CartActivity extends AppCompatActivity {
     private Button mButtonContinue, mButtonCheckout;
     private RecyclerView recyclerView;
     private DBManipulation mDBManipulation;
-    private List<Item> itemList;
+    private ShoppingCartList itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,10 @@ public class CartActivity extends AppCompatActivity {
         String temp = new SPManipulation().getValue(CartActivity.this);
         String[] test = temp.split(" ");
         mDBManipulation = new DBManipulation(CartActivity.this, test[0]+test[2]);
-        itemList = mDBManipulation.selectAll();
+        itemList = ShoppingCartList.getInstance();
+        itemList.clear();
+        itemList.addAll( mDBManipulation.selectAll());
+        //itemList = mDBManipulation.selectAll();
         CartListAdapter cartListAdapter = new CartListAdapter(CartActivity.this, itemList, this);
         recyclerView.setAdapter(cartListAdapter);
         recyclerView.setHasFixedSize(true);
@@ -44,13 +49,15 @@ public class CartActivity extends AppCompatActivity {
         mButtonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
         mButtonCheckout = (Button) findViewById(R.id.cart_checkout);
         mButtonCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, CheckoutActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -66,12 +73,5 @@ public class CartActivity extends AppCompatActivity {
             result += itemList.get(i).getPrice() * itemList.get(i).getQuantity();
         }
         return result;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mTextTotal = (TextView) findViewById(R.id.cart_total);
-        mTextTotal.setText(String.valueOf(calculateTotal(itemList)));
     }
 }

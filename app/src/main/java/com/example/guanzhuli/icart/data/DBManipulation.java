@@ -58,11 +58,16 @@ public class DBManipulation {
         }
     }
 
+    public void deleteAll() {
+        mSQLiteDatabase.execSQL("delete from "+ mDBHelper.TABLENAME);
+    }
+
     public List<Item> selectAll() {
         List<Item> result = new ArrayList<>();
         Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + mDBHelper.TABLENAME, null);
         // make sure it start the first, before traverse the table
         cursor.moveToFirst();
+        if (cursor.getCount() == 0) return result;
         // Cursor: like iteration, it has pointer!
         while (true) {
             String id = cursor.getString(cursor.getColumnIndex(mDBHelper.ITEMID));

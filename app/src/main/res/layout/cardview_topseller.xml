@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/seller_pic"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -27,18 +28,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
             <TextView
-                android:text="SellerId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                    android:textSize="10dp"
+                    android:id="@+id/seller_id"
+                    android:text="SellerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             <TextView
+                    android:textSize="20dp"
+                    android:id="@+id/seller_name"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
                     android:text="SellerName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/seller_deal"
                     android:text="SellerDeal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <TextView
+                    android:id="@+id/seller_rating"
                     android:text="Rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

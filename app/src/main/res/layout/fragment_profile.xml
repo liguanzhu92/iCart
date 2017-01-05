@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_marginBottom="@dimen/activity_vertical_margin"
+              android:layout_marginTop="@dimen/activity_vertical_margin"
+              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_marginRight="@dimen/activity_horizontal_margin"
+              tools:context="com.example.guanzhuli.icart.Fragment.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textSize="26dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset Password"/>
+
+    <TextView
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="Current Password:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <EditText
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="Current Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:text="New Password:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <EditText
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="New Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:text="Re-type Password:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <EditText
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="Re-type Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+        <Button
+                android:id="@+id/profile_confirm"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:backgroundTint="@color/colorButton"
+                android:textColor="@color/icons"
+                android:text="Confirm"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/profile_cancel"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:backgroundTint="@color/colorButton"
+                android:textColor="@color/icons"
+                android:text="Cancel"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+</LinearLayout>

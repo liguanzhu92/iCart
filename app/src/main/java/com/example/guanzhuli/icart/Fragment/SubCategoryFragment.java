@@ -91,6 +91,7 @@ public class SubCategoryFragment extends Fragment {
                                 itemListFragment.setArguments(bundle);
                                 getActivity().getSupportFragmentManager()
                                         .beginTransaction()
+                                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                                         .replace(R.id.main_fragment_container, itemListFragment)
                                         .addToBackStack(SubCategoryFragment.class.getName())
                                         .commit();

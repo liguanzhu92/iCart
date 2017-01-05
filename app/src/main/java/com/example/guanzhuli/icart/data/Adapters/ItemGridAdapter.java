@@ -81,6 +81,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in)
                         .replace(R.id.main_fragment_container, itemDetailFragment)
                         .addToBackStack(ItemListFragment.class.getName())
                         .commit();

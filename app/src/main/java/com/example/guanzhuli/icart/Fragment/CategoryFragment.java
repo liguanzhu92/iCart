@@ -42,6 +42,7 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -83,10 +84,10 @@ public class CategoryFragment extends Fragment {
                                 subCategoryFragment.setArguments(bundle);
                                 getActivity().getSupportFragmentManager()
                                         .beginTransaction()
+                                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                                         .replace(R.id.main_fragment_container, subCategoryFragment)
                                         .addToBackStack(SubCategoryFragment.class.getName())
                                         .commit();
-
                             }
                         });
                     }

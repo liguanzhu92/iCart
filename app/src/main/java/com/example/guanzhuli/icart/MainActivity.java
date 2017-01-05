@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -54,11 +55,7 @@ public class MainActivity extends AppCompatActivity
         TextView email = (TextView) hView.findViewById(R.id.header_email);
         name.setText(new SPManipulation().getEmail(MainActivity.this));
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         if(findViewById(R.id.main_fragment_container) != null) {
             HomeFragment homeFragment = new HomeFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();

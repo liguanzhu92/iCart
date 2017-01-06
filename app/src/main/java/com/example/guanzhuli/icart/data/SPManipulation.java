@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 /**
  * Created by Guanzhu Li on 1/2/2017.
  */
+// name +  email + mobile + pwd;
 public class SPManipulation {
     public static final String PREFS_NAME = "USER";
     public static final String PREFS_USER_KEY = "USER_INFOR";
@@ -19,12 +20,12 @@ public class SPManipulation {
         editor.putString(PREFS_USER_KEY, text); //3
         editor.commit(); //4
     }
-    public void save(Context context, String text, String prefs_key) {
+/*    public void save(Context context, String text, String prefs_key) {
         settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); //1
         editor = settings.edit(); //2
         editor.putString(prefs_key, text); //3
         editor.commit(); //4
-    }
+    }*/
 
     public String getValue(Context context) {
         String text;
@@ -55,6 +56,12 @@ public class SPManipulation {
         String temp = getValue(context);
         String[] s = temp.split(" ");
         return s[0];
+    }
+
+    public String getPwd(Context context) {
+        String temp = getValue(context);
+        String[] s = temp.split(" ");
+        return s[3];
     }
 
     public void clearSharedPreference(Context context) {

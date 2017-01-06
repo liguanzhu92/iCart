@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <EditText
+            android:id="@+id/profile_current_pwd"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:hint="Current Password"
             android:layout_width="match_parent"
@@ -33,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <EditText
+            android:id="@+id/profile_newpwd"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:hint="New Password"
             android:layout_width="match_parent"
@@ -43,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <EditText
+            android:id="@+id/profile_newpwd2"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:hint="Re-type Password"
             android:layout_width="match_parent"

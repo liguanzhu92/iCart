@@ -3,6 +3,7 @@ package com.example.guanzhuli.icart;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,14 +15,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.facebook.*;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 // http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?mobile=123456&password=ansari
 public class SignInActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?";
+    LoginButton mLoginButton;
+    CallbackManager callbackManager;
     Button mButtonSignIn;
     TextView mTextUsername, mTextPassword, mTextSignUp;
     private RequestQueue mRequestQueue;
@@ -29,7 +38,9 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_signin);
+        AppEventsLogger.activateApp(this);
         mRequestQueue = Volley.newRequestQueue(this);
         mTextUsername = (TextView) findViewById(R.id.Sign_in_username);
         mTextPassword = (TextView) findViewById(R.id.sign_in_password);
@@ -38,7 +49,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String mobile = mTextUsername.getText().toString();
-                String pwd = mTextPassword.getText().toString();
+                final String pwd = mTextPassword.getText().toString();
                 String Url = LOGIN_URL + "mobile=" + mobile + "&password=" + pwd;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, Url,
                         new Response.Listener<String>() {
@@ -49,6 +60,8 @@ public class SignInActivity extends AppCompatActivity {
                                     String msg = jsonObject.getString("msg");
                                     if (msg.contains("failure")) {
                                         mTextPassword.setText("");
+                                        Toast.makeText(SignInActivity.this,
+                                                "Username and password does not match!", Toast.LENGTH_LONG).show();
                                     }
                                     return;
                                 } catch (JSONException e) {
@@ -62,13 +75,14 @@ public class SignInActivity extends AppCompatActivity {
                                         // new SPManipulation().save(SignInActivity.this, s);
                                         String username = obj.getString("UserName");
                                         String email = obj.getString("UserEmail");
-                                        String mobile = obj.getString("UserMobile");
                                         StringBuilder stringBuilder = new StringBuilder();
                                         stringBuilder.append(username);
                                         stringBuilder.append(" ");
                                         stringBuilder.append(email);
                                         stringBuilder.append(" ");
                                         stringBuilder.append(mobile);
+                                        stringBuilder.append(" ");
+                                        stringBuilder.append(pwd);
                                         String temp = stringBuilder.toString();
                                         new SPManipulation().save(SignInActivity.this, temp);
                                         Intent i = new Intent(SignInActivity.this, MainActivity.class);
@@ -96,7 +110,62 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        mLoginButton = (LoginButton) findViewById(R.id.login_button);
+        mLoginButton.setReadPermissions("email");
+        callbackManager = CallbackManager.Factory.create();
+        mLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.e("fblogin", "success");
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+
+                                    String email = object.getString("email");
+                                    Log.e("fblogin", email);
+                                    String id = object.getString("id");
+                                    Log.e("fblogin", id);
+                                    String name = object.getString("first_name").toLowerCase();
+                                    Log.e("fblogin", name);
+                                    StringBuilder s = new StringBuilder();
+                                    s.append(name);
+                                    s.append(" ");
+                                    s.append(email);
+                                    s.append(" ");
+                                    s.append(id);
+                                    s.append(" ");
+                                    s.append(" ");
+                                    new SPManipulation().save(SignInActivity.this, s.toString());
+                                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,first_name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e("fblogin", "cancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("fblogin", "error");
+
+            }
+        });
     }
-
-
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }

@@ -17,6 +17,13 @@ public class HomeFragment extends Fragment {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private static final int[] mResources = {
+            R.drawable.page1,
+            R.drawable.page2,
+            R.drawable.page3,
+            R.drawable.page4,
+            R.drawable.page5,
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);

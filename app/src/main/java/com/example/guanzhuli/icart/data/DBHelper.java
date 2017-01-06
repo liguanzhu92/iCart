@@ -9,8 +9,8 @@ import android.util.Log;
  * Created by Guanzhu Li on 12/31/2016.
  */
 public class DBHelper  extends SQLiteOpenHelper {
-    public static final String DATABASENAME = "cart";
-    public static String TABLENAME;
+    public static String DATABASENAME;
+    public static final String TABLENAME = "cart";
     public static final String ITEMID = "id";
     public static final String ITEMNAME = "name";
     public static final String IMAGEURL = "image_url";
@@ -18,13 +18,19 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static final String PRICE = "price";
     public static final int VERSION = 1;
 
-    public DBHelper(Context context, String table) {
+    public DBHelper(Context context, String dbname) {
         super(context, DATABASENAME, null, VERSION);
-        TABLENAME = table;
+        DATABASENAME = dbname;
+    }
+
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        return super.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        Log.e("sqlite", "create table");
         String createTable = " CREATE TABLE " + TABLENAME + "("
                 + ITEMID + " INTEGER PRIMARY KEY," + ITEMNAME + " TEXT,"
                 + IMAGEURL + " TEXT," + QUANTITY + " INTEGER," + PRICE + " DECIMAL(10,2))";

@@ -16,9 +16,10 @@ public class DBManipulation {
     DBHelper mDBHelper;
     SQLiteDatabase mSQLiteDatabase;
     Context context;
-    public DBManipulation(Context context, String tablename) {
+
+    public DBManipulation(Context context, String dbname) {
         this.context = context;
-        mDBHelper = new DBHelper(context, tablename);
+        mDBHelper = new DBHelper(context, dbname);
         mSQLiteDatabase = mDBHelper.getWritableDatabase();
     }
     public void insert(Item item) {
@@ -61,6 +62,7 @@ public class DBManipulation {
     public void deleteAll() {
         mSQLiteDatabase.execSQL("delete from "+ mDBHelper.TABLENAME);
     }
+
 
     public List<Item> selectAll() {
         List<Item> result = new ArrayList<>();

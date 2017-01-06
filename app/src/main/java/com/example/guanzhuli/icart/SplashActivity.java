@@ -1,14 +1,22 @@
 package com.example.guanzhuli.icart;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SplashActivity extends AppCompatActivity {
     ImageView mButtonClose;
@@ -44,6 +52,8 @@ public class SplashActivity extends AppCompatActivity {
         timerThread.start();
         startAnimation();
     }
+
+
 
     private void startAnimation() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.move);

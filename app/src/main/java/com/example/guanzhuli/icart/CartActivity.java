@@ -32,9 +32,9 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         recyclerView = (RecyclerView) findViewById(R.id.cart_container);
-        String temp = new SPManipulation().getValue(CartActivity.this);
-        String[] test = temp.split(" ");
-        mDBManipulation = new DBManipulation(CartActivity.this, test[0]+test[2]);
+        String name =  new SPManipulation().getName(CartActivity.this);
+        String mobile =  new SPManipulation().getMobile(CartActivity.this);
+        mDBManipulation = new DBManipulation(CartActivity.this, name + mobile);
         itemList = ShoppingCartList.getInstance();
         itemList.clear();
         itemList.addAll( mDBManipulation.selectAll());

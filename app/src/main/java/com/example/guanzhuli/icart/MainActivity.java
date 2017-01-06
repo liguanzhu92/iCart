@@ -3,9 +3,6 @@ package com.example.guanzhuli.icart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,10 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.example.guanzhuli.icart.Fragment.CategoryFragment;
-import com.example.guanzhuli.icart.Fragment.HomeFragment;
-import com.example.guanzhuli.icart.Fragment.OrderHistoryFragment;
-import com.example.guanzhuli.icart.Fragment.SubCategoryFragment;
+import com.example.guanzhuli.icart.Fragment.*;
 import com.example.guanzhuli.icart.data.SPManipulation;
 
 public class MainActivity extends AppCompatActivity
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         TextView name = (TextView) hView.findViewById(R.id.header_username);
         name.setText(new SPManipulation().getName(MainActivity.this));
         TextView email = (TextView) hView.findViewById(R.id.header_email);
-        name.setText(new SPManipulation().getEmail(MainActivity.this));
+        email.setText(new SPManipulation().getEmail(MainActivity.this));
         navigationView.setNavigationItemSelectedListener(this);
 
         if(findViewById(R.id.main_fragment_container) != null) {
@@ -127,15 +121,15 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_favorite:
                 break;
             case R.id.nav_help:
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"liguanzhu390@gmail.com"});
-                i.putExtra(Intent.EXTRA_SUBJECT, "Help");
-                startActivity(Intent.createChooser(i, "Send Email..."));
+                HelpFragment helpFragment = new HelpFragment();
+                transaction.addToBackStack(OrderHistoryFragment.class.getName());
+                transaction.replace(R.id.main_fragment_container, helpFragment).commit();
                 break;
             case R.id.nav_rate:
                 break;
             case R.id.nav_logout:
-                new SPManipulation().clearSharedPreference(MainActivity.this);
+                SPManipulation sp = new SPManipulation();
+                sp.clearSharedPreference(MainActivity.this);
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 break;
             default:

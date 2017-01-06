@@ -42,7 +42,7 @@ public class HomeTopSellerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.tablayout_home, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.home_container);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_container);
         mRequestQueue = Volley.newRequestQueue(getContext());
         // request the value
         StringRequest stringRequest = new StringRequest(Request.Method.GET, TOPSELLER_URL,

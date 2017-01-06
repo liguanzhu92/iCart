@@ -27,11 +27,12 @@ import java.util.List;
  */
 public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
     private RequestQueue mRequestQueue;
-    Context mContext;
-    Activity mActivity;
-    LayoutInflater inflater;
-    ImageLoader mImageLoader;
-    List<Item> mItemArrayList;
+    private Context mContext;
+    private Activity mActivity;
+    private LayoutInflater inflater;
+    private ImageLoader mImageLoader;
+    private List<Item> mItemArrayList;
+    private DBManipulation mDBManipulation;
     public CartListAdapter(Context context, List<Item> objects, Activity activity) {
         this.mActivity = activity;
         this.mContext = context;
@@ -98,9 +99,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
                 double result = Double.parseDouble(mTextTotal.getText().toString());
                 result -= mItemArrayList.get(position).getQuantity() * mItemArrayList.get(position).getPrice();
                 mTextTotal.setText(String.valueOf(result));
-                String s = new SPManipulation().getValue(mContext);
-                String[] temp = s.split(" ");
-                new DBManipulation(mContext, temp[0] + temp[2]).delete(mItemArrayList.get(position).getId());
+                String name = new SPManipulation().getName(mContext);
+                String mobile = new SPManipulation().getMobile(mContext);
+                mDBManipulation = DBManipulation.getInstance(mContext, name + mobile);
+                mDBManipulation.delete(mItemArrayList.get(position).getId());
                 mItemArrayList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemChanged(position, mItemArrayList);

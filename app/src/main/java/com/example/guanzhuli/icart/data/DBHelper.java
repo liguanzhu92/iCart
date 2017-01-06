@@ -9,7 +9,6 @@ import android.util.Log;
  * Created by Guanzhu Li on 12/31/2016.
  */
 public class DBHelper  extends SQLiteOpenHelper {
-    public static String DATABASENAME;
     public static final String TABLENAME = "cart";
     public static final String ITEMID = "id";
     public static final String ITEMNAME = "name";
@@ -19,13 +18,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static final int VERSION = 1;
 
     public DBHelper(Context context, String dbname) {
-        super(context, DATABASENAME, null, VERSION);
-        DATABASENAME = dbname;
-    }
-
-    @Override
-    public SQLiteDatabase getWritableDatabase() {
-        return super.getWritableDatabase();
+        super(context, dbname, null, VERSION);
     }
 
     @Override

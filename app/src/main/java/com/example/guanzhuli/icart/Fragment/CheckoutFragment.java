@@ -22,7 +22,6 @@ import com.example.guanzhuli.icart.CartActivity;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CheckoutItemAdapter;
 import com.example.guanzhuli.icart.data.DBManipulation;
-import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
 import com.example.guanzhuli.icart.data.ShoppingCartList;
 import org.json.JSONArray;
@@ -42,6 +41,7 @@ public class CheckoutFragment extends Fragment {
     Button mButtonConfirm, mButtonCancel;
     RequestQueue mRequestQueue;
     RecyclerView mRecyclerView;
+    DBManipulation mDBManipulation;
     private String mobile;
     private ShoppingCartList mItemList;
     @Nullable
@@ -116,7 +116,9 @@ public class CheckoutFragment extends Fragment {
 
         mItemList.clear();
         SPManipulation sp = new SPManipulation();
-        new DBManipulation(getContext(),sp.getName(getContext()) + sp.getMobile(getContext())).deleteAll();
+
+        mDBManipulation = DBManipulation.getInstance(getContext(),sp.getName(getContext()) + sp.getMobile(getContext()));
+        mDBManipulation.deleteAll();
         OrderSuccessFragment orderSuccessFragment = new OrderSuccessFragment();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.checkout_fragment_container, orderSuccessFragment).commit();
     }

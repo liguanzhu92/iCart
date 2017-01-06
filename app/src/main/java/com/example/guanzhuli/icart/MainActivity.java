@@ -16,12 +16,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import com.example.guanzhuli.icart.Fragment.*;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.facebook.login.LoginManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_rate:
                 break;
             case R.id.nav_logout:
+                LoginManager.getInstance().logOut();
                 SPManipulation sp = new SPManipulation();
                 sp.clearSharedPreference(MainActivity.this);
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));

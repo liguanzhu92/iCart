@@ -13,15 +13,26 @@ import java.util.List;
  * Created by Guanzhu Li on 12/31/2016.
  */
 public class DBManipulation {
-    DBHelper mDBHelper;
-    SQLiteDatabase mSQLiteDatabase;
-    Context context;
+    private DBHelper mDBHelper;
+    private SQLiteDatabase mSQLiteDatabase;
+    private Context mContext;
+    private static String mDBName = "";
+    private static DBManipulation mInstance;
 
     public DBManipulation(Context context, String dbname) {
-        this.context = context;
+        mDBName = dbname;
+        this.mContext = context;
         mDBHelper = new DBHelper(context, dbname);
         mSQLiteDatabase = mDBHelper.getWritableDatabase();
     }
+
+    public static DBManipulation getInstance(Context context, String dbname) {
+        if (mInstance == null || !mDBName.equals(dbname)) {
+            mInstance = new DBManipulation(context, dbname);
+        }
+        return mInstance;
+    }
+
     public void insert(Item item) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(mDBHelper.ITEMID, item.id);
@@ -31,9 +42,9 @@ public class DBManipulation {
         contentValues.put(mDBHelper.PRICE,item.price);
         long i = mSQLiteDatabase.insert(mDBHelper.TABLENAME, null, contentValues);
         if (i > -1) {
-            Toast.makeText(context, "Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Successfully", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Add Failed. Already existed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Add Failed. Already existed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -44,18 +55,18 @@ public class DBManipulation {
                 contentValues, mDBHelper.ITEMID + " = ?",
                 new String[] {id});
         if (res > 0) {
-            Toast.makeText(context, "Update successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Update successfully", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(context, "Update failed, this id does not exist", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Update failed, this id does not exist", Toast.LENGTH_LONG).show();
         }
     }
 
     public void delete(String id) {
         int mark = mSQLiteDatabase.delete(mDBHelper.TABLENAME,mDBHelper.ITEMID + " = ?", new String[] {id});
         if(mark > 0) {
-            Toast.makeText(context, "remove successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "remove successfully", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(context, "remove failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "remove failed", Toast.LENGTH_LONG).show();
         }
     }
 

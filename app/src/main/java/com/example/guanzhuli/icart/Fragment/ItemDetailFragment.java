@@ -132,9 +132,9 @@ public class ItemDetailFragment extends Fragment {
             public void onClick(View view) {
                 // add current quant
                 mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
-                String temp = new SPManipulation().getValue(getContext());
-                String[] test = temp.split(" ");
-                mDBManipulation = new DBManipulation(getContext(), test[0]+test[2]);
+                String name = new SPManipulation().getName(getContext());
+                String mobile = new SPManipulation().getMobile(getContext());
+                mDBManipulation = DBManipulation.getInstance(getContext(), name + mobile);
                 mDBManipulation.insert(mItem);
             }
         });

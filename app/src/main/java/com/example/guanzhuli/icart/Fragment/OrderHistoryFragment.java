@@ -38,14 +38,16 @@ public class OrderHistoryFragment extends Fragment {
     private static final String ORDER_PRICE = "FinalPrice";
     private static final String ORDER_STATUS = "OrderStatus";
 
-    RecyclerView mRecyclerView;
-    RequestQueue mRequestQueue;
-    List<Order> mOrderList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private RequestQueue mRequestQueue;
+    private List<Order> mOrderList = new ArrayList<>();
+    private SPManipulation mSPManipulation;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_order_history, container, false);
+        mSPManipulation = SPManipulation.getInstance(getContext());
         getOrderList();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.order_history_container);
         return view;
@@ -54,7 +56,7 @@ public class OrderHistoryFragment extends Fragment {
     private void getOrderList() {
         mRequestQueue = Volley.newRequestQueue(getContext());
         //String url = ORDER_URL + "5555555";
-        String url = ORDER_URL + new SPManipulation().getMobile(getContext());
+        String url = ORDER_URL + mSPManipulation.getMobile();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

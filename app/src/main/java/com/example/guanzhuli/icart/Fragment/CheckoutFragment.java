@@ -38,10 +38,11 @@ import java.util.ArrayList;
 public class CheckoutFragment extends Fragment {
     private static final String CHECKOUT_URL =
             "http://rjtmobile.com/ansari/shopingcart/androidapp/orders.php?&item_id=";
-    Button mButtonConfirm, mButtonCancel;
-    RequestQueue mRequestQueue;
-    RecyclerView mRecyclerView;
-    DBManipulation mDBManipulation;
+    private Button mButtonConfirm, mButtonCancel;
+    private RequestQueue mRequestQueue;
+    private RecyclerView mRecyclerView;
+    private DBManipulation mDBManipulation;
+    private SPManipulation mSPManipulation;
     private String mobile;
     private ShoppingCartList mItemList;
     @Nullable
@@ -64,7 +65,8 @@ public class CheckoutFragment extends Fragment {
                 startActivity(new Intent(getContext(), CartActivity.class));
             }
         });
-        mobile = new SPManipulation().getMobile(getContext());
+        mSPManipulation = SPManipulation.getInstance(getContext());
+        mobile = mSPManipulation.getMobile();
         // mobile="5555555";
         mButtonConfirm = (Button) view.findViewById(R.id.checkout_confirm);
         mButtonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -115,9 +117,8 @@ public class CheckoutFragment extends Fragment {
         }
 
         mItemList.clear();
-        SPManipulation sp = new SPManipulation();
 
-        mDBManipulation = DBManipulation.getInstance(getContext(),sp.getName(getContext()) + sp.getMobile(getContext()));
+        mDBManipulation = DBManipulation.getInstance(getContext(),mSPManipulation.getName()+ mSPManipulation.getMobile());
         mDBManipulation.deleteAll();
         OrderSuccessFragment orderSuccessFragment = new OrderSuccessFragment();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.checkout_fragment_container, orderSuccessFragment).commit();

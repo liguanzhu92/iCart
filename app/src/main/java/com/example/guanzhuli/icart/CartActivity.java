@@ -22,6 +22,7 @@ public class CartActivity extends AppCompatActivity {
     private Button mButtonContinue, mButtonCheckout;
     private RecyclerView recyclerView;
     private DBManipulation mDBManipulation;
+    private SPManipulation mSPManipulation;
     private ShoppingCartList itemList;
 
     @Override
@@ -29,8 +30,9 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         recyclerView = (RecyclerView) findViewById(R.id.cart_container);
-        String name =  new SPManipulation().getName(CartActivity.this);
-        String mobile =  new SPManipulation().getMobile(CartActivity.this);
+        mSPManipulation = SPManipulation.getInstance(this);
+        String name =  mSPManipulation.getName();
+        String mobile =  mSPManipulation.getMobile();
         mDBManipulation = DBManipulation.getInstance(this, name + mobile);
         itemList = ShoppingCartList.getInstance();
         itemList.clear();

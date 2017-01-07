@@ -20,14 +20,16 @@ import com.example.guanzhuli.icart.data.SPManipulation;
 // http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reg.php?%20name=aamir&email=aa@gmail.com&mobile=555454545465&password=7011
 public class SignUpActivity extends AppCompatActivity {
     private static final String REGISTER_URL = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reg.php?%20";
-    TextView mTextUsername, mTextMobile, mTextEmail, mTextPwd, mTextRePwd, mTextSignIn;
-    Button mButtonSignUp;
-    RequestQueue mRequestQueue;
+    private TextView mTextUsername, mTextMobile, mTextEmail, mTextPwd, mTextRePwd, mTextSignIn;
+    private Button mButtonSignUp;
+    private RequestQueue mRequestQueue;
+    private SPManipulation mSPManipulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        mSPManipulation = SPManipulation.getInstance(this);
         mRequestQueue =  Volley.newRequestQueue(SignUpActivity.this);
         mTextUsername = (TextView) findViewById(R.id.sign_up_username);
         mTextMobile = (TextView) findViewById(R.id.sign_up_mobile);
@@ -44,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
                 // add method to check all are numbers
                 final String email = mTextEmail.getText().toString();
                 // add method to check email format
-                String pwd = mTextPwd.getText().toString();
+                final String pwd = mTextPwd.getText().toString();
                 String pwd2 = mTextRePwd.getText().toString();
                 if (!pwdMatch(pwd, pwd2)) {
                     Toast.makeText(SignUpActivity.this, "Password does not match!", Toast.LENGTH_LONG).show();
@@ -60,10 +62,11 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String s) {
                                 if (s.contains("successfully")) {
-                                    SPManipulation spManipulation = new SPManipulation();
-                                    spManipulation.clearSharedPreference(SignUpActivity.this);
-                                    String addNew = "Username:" + username + "\n Mobile:" + mobile + "\nEmail:" + email;
-                                    spManipulation.save(SignUpActivity.this, addNew);
+                                    mSPManipulation.clearSharedPreference(SignUpActivity.this);
+                                    mSPManipulation.saveName(username);
+                                    mSPManipulation.saveMobile(mobile);
+                                    mSPManipulation.saveEmail(email);
+                                    mSPManipulation.savePwd(pwd);
                                     Intent i = new Intent(SignUpActivity.this, MainActivity.class);
                                     startActivity(i);
                                 }

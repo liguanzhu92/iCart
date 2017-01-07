@@ -35,7 +35,8 @@ public class ItemDetailFragment extends Fragment {
     private int maxQuantity;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    DBManipulation mDBManipulation;
+    private DBManipulation mDBManipulation;
+    private SPManipulation mSPManipulation;
     private Item mItem;
 
     @Override
@@ -51,6 +52,7 @@ public class ItemDetailFragment extends Fragment {
                 return mCache.get(url);
             }
         });
+        mSPManipulation = SPManipulation.getInstance(context);
     }
 
     @Override
@@ -63,15 +65,6 @@ public class ItemDetailFragment extends Fragment {
         mImageView = (NetworkImageView)view.findViewById(R.id.item_details_image);
         getBundleData();
         setTextViewData();
-/*        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            maxQuantity = bundle.getInt(ITEM_QUANTITY);
-            mTextId.setText("Item ID: " + bundle.getString(ITEM_ID));
-            mTextName.setText("Item Name: " + bundle.getString(ITEM_NAME));
-            mTextDescription.setText("Description: " +bundle.getString(ITEM_DES));
-            mTextPrice.setText("Price: " + Double.toString(bundle.getDouble(ITEM_PRICE)));
-            mImageView.setImageUrl(bundle.getString(ITEM_IMAGEURL), mImageLoader);
-        }*/
         return view;
     }
 
@@ -132,8 +125,8 @@ public class ItemDetailFragment extends Fragment {
             public void onClick(View view) {
                 // add current quant
                 mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
-                String name = new SPManipulation().getName(getContext());
-                String mobile = new SPManipulation().getMobile(getContext());
+                String name = mSPManipulation.getName();
+                String mobile = mSPManipulation.getMobile();
                 mDBManipulation = DBManipulation.getInstance(getContext(), name + mobile);
                 mDBManipulation.insert(mItem);
             }

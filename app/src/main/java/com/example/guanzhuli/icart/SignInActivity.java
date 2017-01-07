@@ -29,18 +29,19 @@ import java.util.Arrays;
 public class SignInActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_login.php?";
-    LoginButton mLoginButton;
-    CallbackManager callbackManager;
-    Button mButtonSignIn;
-    TextView mTextUsername, mTextPassword, mTextSignUp;
+    private LoginButton mLoginButton;
+    private CallbackManager callbackManager;
+    private Button mButtonSignIn;
+    private TextView mTextUsername, mTextPassword, mTextSignUp;
     private RequestQueue mRequestQueue;
+    private SPManipulation mSPManipulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_signin);
         AppEventsLogger.activateApp(this);
+        setContentView(R.layout.activity_signin);
+        mSPManipulation = SPManipulation.getInstance(this);
         mRequestQueue = Volley.newRequestQueue(this);
         mTextUsername = (TextView) findViewById(R.id.Sign_in_username);
         mTextPassword = (TextView) findViewById(R.id.sign_in_password);
@@ -75,16 +76,10 @@ public class SignInActivity extends AppCompatActivity {
                                         // new SPManipulation().save(SignInActivity.this, s);
                                         String username = obj.getString("UserName");
                                         String email = obj.getString("UserEmail");
-                                        StringBuilder stringBuilder = new StringBuilder();
-                                        stringBuilder.append(username);
-                                        stringBuilder.append(" ");
-                                        stringBuilder.append(email);
-                                        stringBuilder.append(" ");
-                                        stringBuilder.append(mobile);
-                                        stringBuilder.append(" ");
-                                        stringBuilder.append(pwd);
-                                        String temp = stringBuilder.toString();
-                                        new SPManipulation().save(SignInActivity.this, temp);
+                                        mSPManipulation.saveName(username);
+                                        mSPManipulation.saveEmail(email);
+                                        mSPManipulation.savePwd(pwd);
+                                        mSPManipulation.saveMobile(mobile);
                                         Intent i = new Intent(SignInActivity.this, MainActivity.class);
                                         startActivity(i);
                                     }
@@ -129,15 +124,10 @@ public class SignInActivity extends AppCompatActivity {
                                     Log.e("fblogin", id);
                                     String name = object.getString("first_name").toLowerCase();
                                     Log.e("fblogin", name);
-                                    StringBuilder s = new StringBuilder();
-                                    s.append(name);
-                                    s.append(" ");
-                                    s.append(email);
-                                    s.append(" ");
-                                    s.append(id);
-                                    s.append(" ");
-                                    s.append(" ");
-                                    new SPManipulation().save(SignInActivity.this, s.toString());
+                                    mSPManipulation.saveName(name);
+                                    mSPManipulation.saveEmail(email);
+                                    mSPManipulation.savePwd(" ");
+                                    mSPManipulation.saveMobile(id);
                                     startActivity(new Intent(SignInActivity.this, MainActivity.class));
                                 } catch (JSONException e) {
                                     e.printStackTrace();

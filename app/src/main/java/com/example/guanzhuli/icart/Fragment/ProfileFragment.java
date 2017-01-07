@@ -29,14 +29,14 @@ public class ProfileFragment extends Fragment {
     private static final String RESET_URL =
             "http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reset_pass.php?&mobile=";
     // http://rjtmobile.com/ansari/shopingcart/androidapp/shop_reset_pass.php?&mobile=1&password=2&newpassword=456
-    private String mobile;
+    private SPManipulation mSPManipulation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mobile = "1";
         //mobile = new SPManipulation().getMobile(getContext());
         mRequestQueue = Volley.newRequestQueue(getContext());
+        mSPManipulation = SPManipulation.getInstance(getContext());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
                     mEditReNewPwd.setText("");
                     return;
                 }
-                resetPwd(pwd, newPwd, new SPManipulation().getMobile(getContext()));
+                resetPwd(pwd, newPwd, mSPManipulation.getMobile());
             }
         });
         mButtonCancel = (Button) view.findViewById(R.id.profile_cancel);
@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private boolean checkOldPwd(String pwd) {
-        String savedPwd = new SPManipulation().getPwd(getContext());
+        String savedPwd = mSPManipulation.getPwd();
         if ( !pwd.equals(savedPwd)) {
             Toast.makeText(getContext(), "Old Password is not correct!", Toast.LENGTH_LONG).show();
             return false;

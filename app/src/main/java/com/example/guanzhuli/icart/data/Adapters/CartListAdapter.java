@@ -33,6 +33,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
     private ImageLoader mImageLoader;
     private List<Item> mItemArrayList;
     private DBManipulation mDBManipulation;
+    private SPManipulation mSPManipulation;
     public CartListAdapter(Context context, List<Item> objects, Activity activity) {
         this.mActivity = activity;
         this.mContext = context;
@@ -48,6 +49,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
         });
         inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
+        mSPManipulation = SPManipulation.getInstance(context);
     }
 
     @Override
@@ -99,8 +101,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
                 double result = Double.parseDouble(mTextTotal.getText().toString());
                 result -= mItemArrayList.get(position).getQuantity() * mItemArrayList.get(position).getPrice();
                 mTextTotal.setText(String.valueOf(result));
-                String name = new SPManipulation().getName(mContext);
-                String mobile = new SPManipulation().getMobile(mContext);
+                String name = mSPManipulation.getName();
+                String mobile = mSPManipulation.getMobile();
                 mDBManipulation = DBManipulation.getInstance(mContext, name + mobile);
                 mDBManipulation.delete(mItemArrayList.get(position).getId());
                 mItemArrayList.remove(position);

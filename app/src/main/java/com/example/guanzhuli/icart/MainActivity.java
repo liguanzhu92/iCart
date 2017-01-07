@@ -20,6 +20,7 @@ import com.facebook.login.LoginManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private SPManipulation mSPManipulation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
+        mSPManipulation = SPManipulation.getInstance(this);
         TextView name = (TextView) hView.findViewById(R.id.header_username);
-        name.setText(new SPManipulation().getName(MainActivity.this));
+        name.setText(mSPManipulation.getName());
         TextView email = (TextView) hView.findViewById(R.id.header_email);
-        email.setText(new SPManipulation().getEmail(MainActivity.this));
+        email.setText(mSPManipulation.getEmail());
         navigationView.setNavigationItemSelectedListener(this);
 
         if(findViewById(R.id.main_fragment_container) != null) {
@@ -131,8 +133,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 LoginManager.getInstance().logOut();
-                SPManipulation sp = new SPManipulation();
-                sp.clearSharedPreference(MainActivity.this);
+                mSPManipulation.clearSharedPreference(MainActivity.this);
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 break;
             default:

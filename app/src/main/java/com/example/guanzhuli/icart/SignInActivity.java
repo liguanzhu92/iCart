@@ -32,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
     private LoginButton mLoginButton;
     private CallbackManager callbackManager;
     private Button mButtonSignIn;
+    private Button mFbButtonSignIn;
     private TextView mTextUsername, mTextPassword, mTextSignUp;
     private RequestQueue mRequestQueue;
     private SPManipulation mSPManipulation;
@@ -105,7 +106,7 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        mLoginButton = (LoginButton) findViewById(R.id.login_button);
+        mLoginButton = new LoginButton(this);
         mLoginButton.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         mLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -152,6 +153,14 @@ public class SignInActivity extends AppCompatActivity {
 
             }
         });
+        mFbButtonSignIn = (Button)findViewById(R.id.button_fb_sign_in);
+        mFbButtonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLoginButton.performClick();
+            }
+        });
+
     }
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {

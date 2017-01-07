@@ -25,8 +25,6 @@ public class HomeFragment extends Fragment {
             R.drawable.page1,
             R.drawable.page2,
             R.drawable.page3,
-            R.drawable.page4,
-            R.drawable.page5,
     };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

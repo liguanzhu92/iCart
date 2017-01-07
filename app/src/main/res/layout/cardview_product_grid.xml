@@ -10,7 +10,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical">
         <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/item_grid_image"

@@ -15,15 +15,39 @@
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:backgroundTint="@color/menuBackground"
-        app:itemTextColor="@color/menuText"
-        app:itemIconTint="@color/menuText"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start">
+
+        <android.support.design.widget.NavigationView
+                android:id="@+id/nav_view"
+                android:backgroundTint="@color/menuBackground"
+                app:itemTextColor="@color/menuText"
+                app:itemIconTint="@color/menuText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                android:layout_marginBottom="50dp"
+                app:headerLayout="@layout/nav_header_main"
+                app:menu="@menu/activity_main_drawer">
+        </android.support.design.widget.NavigationView>
+
+        <android.support.design.widget.NavigationView
+                android:backgroundTint="@color/menuBackground"
+                app:itemTextColor="@color/menuText"
+                app:itemIconTint="@color/menuText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:fitsSystemWindows="true">
+            <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/menuText"
+                    android:src="@drawable/icart_alpha"/>
+        </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

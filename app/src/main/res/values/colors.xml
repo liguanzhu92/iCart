@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#18b6d9</color>
     <color name="colorPrimaryDark">#128EA8</color>
-    <color name="colorButton">#4fc3f7</color>
+    <color name="colorButton">#18b6d9</color>
     <color name="colorPrimaryLight">#b3e5fc</color>
     <color name="colorAccent">#00BCD4</color>
     <color name="primary_text">#212121</color>
@@ -14,4 +14,5 @@
     <color name="menuBackground">#40555A</color>
     <color name="menuText">#6d8287</color>
     <color name="navTop">#1f5d6a</color>
+    <color name="fab">#cbcbcb</color>
 </resources>

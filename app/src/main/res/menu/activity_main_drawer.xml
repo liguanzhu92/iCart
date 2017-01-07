@@ -5,44 +5,46 @@
         <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/menu_home"
-                android:title="Home" />
+                android:title="Home"/>
         <item
-            android:id="@+id/nav_category"
-            android:icon="@drawable/menu_category"
-            android:title="Category" />
+                android:id="@+id/nav_category"
+                android:icon="@drawable/menu_category"
+                android:title="Category"/>
         <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/menu_profile"
-                android:title="Profile" />
+                android:title="Profile"/>
         <item
-            android:id="@+id/nav_wallet"
-            android:icon="@drawable/menu_wallet"
-            android:title="Wallet" />
+                android:id="@+id/nav_wallet"
+                android:icon="@drawable/menu_wallet"
+                android:title="Wallet"/>
         <item
-            android:id="@+id/nav_order"
-            android:icon="@drawable/menu_order"
-            android:title="History" />
+                android:id="@+id/nav_order"
+                android:icon="@drawable/menu_order"
+                android:title="History"/>
         <item
                 android:id="@+id/nav_favorite"
                 android:icon="@drawable/menu_favourite"
-                android:title="Favorite" />
+                android:title="Favorite"/>
 
     </group>
 
-    <item android:title="Communicate">
+    <item
+            android:id="@+id/nav_communication_title"
+            android:title="Communicate">
         <menu>
             <item
                     android:id="@+id/nav_help"
                     android:icon="@drawable/menu_help"
-                    android:title="Help" />
+                    android:title="Help"/>
             <item
-                android:id="@+id/nav_rate"
-                android:icon="@drawable/menu_rate"
-                android:title="Rate" />
+                    android:id="@+id/nav_rate"
+                    android:icon="@drawable/menu_rate"
+                    android:title="Rate"/>
             <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/menu_logout"
-                android:title="Log Out" />
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/menu_logout"
+                    android:title="Log Out"/>
         </menu>
     </item>
 

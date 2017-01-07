@@ -6,8 +6,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         tools:context="com.example.guanzhuli.icart.SignInActivity">
@@ -16,26 +14,30 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             app:srcCompat="@drawable/icart"/>
     <EditText
             android:id="@+id/Sign_in_username"
+            android:fontFamily="sans-serif-light"
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
             android:hint="Phone number"
             android:layout_height="wrap_content"/>
     <EditText
             android:id="@+id/sign_in_password"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
             android:hint="Password"
             android:ems="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:inputType="textPassword"/>
     <TextView
             android:clickable="true"
-            android:textStyle="italic"
+            android:fontFamily="sans-serif-light"
             android:layout_gravity="end"
+            android:paddingEnd="32dp"
             android:text="Forgot password?"
             android:textSize="12dp"
             android:layout_width="wrap_content" android:layout_height="wrap_content"/>
@@ -43,11 +45,13 @@
             android:layout_gravity="center"
             android:id="@+id/button_sign_in"
             android:text="login"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:backgroundTint="@color/colorButton"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#fff"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="60dp"/>
     <LinearLayout
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:orientation="horizontal"
@@ -56,25 +60,59 @@
             android:layout_height="wrap_content">
         <TextView
                 android:layout_gravity="center"
-                android:text="Don't have an account?"
+                android:text="Don't have an account? "
+                android:textSize="12dp"
+                android:fontFamily="sans-serif-light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/to_sign_up"
                 android:clickable="true"
+                android:textSize="12dp"
                 android:text="Sign up"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
-    <com.facebook.login.widget.LoginButton
-            android:theme="@android:style/Widget.Holo.Button"
-            android:id="@+id/login_button"
+    <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:text="or"/>
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+    <Button
+            android:layout_gravity="center"
+            android:id="@+id/button_fb_sign_in"
+            android:text="Connect with Facebook"
+            android:textColor="#fff"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:backgroundTint="#565fa0"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+    <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal"
-            android:text="  connect_with_facebook" />
-
-
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:textSize="12dp"
+            android:text="We will never publish on your facebook"/>
 </LinearLayout>

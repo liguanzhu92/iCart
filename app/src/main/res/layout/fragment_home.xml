@@ -3,51 +3,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- search -->
-    <LinearLayout
-            android:id="@+id/linear1"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView
-                android:src="@drawable/search"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"/>
-        <EditText
-                android:hint="Search..."
-                android:layout_width="0dp"
-                android:layout_weight="11"
-                android:layout_height="wrap_content"/>
-        <Button
-                android:id="@+id/search"
-                android:text="Search"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
+
     <LinearLayout
             android:orientation="vertical"
-            android:layout_below="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <!-- page view to swipe  -->
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15">
         <android.support.v4.view.ViewPager
                 android:id="@+id/imagePage"
-                android:layout_below="@+id/linear1"
                 android:layout_width="match_parent"
-                android:layout_weight="11"
-                android:layout_height="0dp"/>
+                android:layout_height="match_parent">
+        </android.support.v4.view.ViewPager>
         <android.support.design.widget.TabLayout
                 android:id="@+id/tabDots"
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 app:tabBackground="@drawable/tab_selector"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"/>
+        </FrameLayout>
+
         <!-- tab layout (1. top seller; 2, category)  -->
         <android.support.design.widget.TabLayout
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

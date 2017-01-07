@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#03a9f4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorPrimary">#18b6d9</color>
+    <color name="colorPrimaryDark">#128EA8</color>
     <color name="colorButton">#4fc3f7</color>
     <color name="colorPrimaryLight">#b3e5fc</color>
     <color name="colorAccent">#00BCD4</color>
@@ -10,4 +10,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="colorBackground">#e1f5fe</color>
+    <color name="cardviewBackground">#F2F5FA</color>
+    <color name="menuBackground">#40555A</color>
+    <color name="navTop">#1f5d6a</color>
 </resources>

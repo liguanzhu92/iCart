@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              app:cardUseCompatPadding="true"
+              android:backgroundTint="@color/cardviewBackground"
               android:layout_width="match_parent"
               android:id="@+id/list_view_category_item"
               android:layout_height="100dp">

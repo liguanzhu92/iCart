@@ -35,6 +35,8 @@ public class HomeFragment extends Fragment {
         // set top view pager
         mViewTop = (ViewPager) view.findViewById(R.id.imagePage);
         mViewTop.setAdapter(new TopPagerAdapter(getContext()));
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(mViewTop, true);
         //set up tabs
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

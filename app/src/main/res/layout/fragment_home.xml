@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- search -->
     <LinearLayout
             android:id="@+id/linear1"
@@ -37,6 +37,14 @@
                 android:layout_width="match_parent"
                 android:layout_weight="11"
                 android:layout_height="0dp"/>
+        <android.support.design.widget.TabLayout
+                android:id="@+id/tabDots"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"/>
         <!-- tab layout (1. top seller; 2, category)  -->
         <android.support.design.widget.TabLayout
                 android:layout_weight="2"

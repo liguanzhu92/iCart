@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity
                 transaction.replace(R.id.main_fragment_container, categoryFragment).commit();
                 break;
             case R.id.nav_profile:
+                ProfileFragment profileFragment = new ProfileFragment();
+                transaction.addToBackStack(CategoryFragment.class.getName());
+                transaction.replace(R.id.main_fragment_container, profileFragment).commit();
                 break;
             case R.id.nav_wallet:
                 break;

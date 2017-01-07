@@ -12,5 +12,6 @@
     <color name="colorBackground">#e1f5fe</color>
     <color name="cardviewBackground">#F2F5FA</color>
     <color name="menuBackground">#40555A</color>
+    <color name="menuText">#6d8287</color>
     <color name="navTop">#1f5d6a</color>
 </resources>

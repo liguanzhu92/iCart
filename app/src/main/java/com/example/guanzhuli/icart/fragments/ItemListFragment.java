@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter;
 import com.example.guanzhuli.icart.data.Adapters.ItemListAdapter;
@@ -30,7 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.guanzhuli.icart.Fragment.SubCategoryFragment.SUBCATEGORY_ID_KEY;
+import static com.example.guanzhuli.icart.fragments.SubCategoryFragment.SUBCATEGORY_ID_KEY;
 
 public class ItemListFragment extends Fragment {
     public static final String ITEMLIST_URL =
@@ -39,9 +37,11 @@ public class ItemListFragment extends Fragment {
     private ImageButton mButtonListView, mButtonGridView;
     RecyclerView recyclerView;
     List<Item> itemList;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Products");
     }
 
     @Override

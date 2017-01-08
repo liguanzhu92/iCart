@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.OrderListAdapter;
 import com.example.guanzhuli.icart.data.Order;
@@ -42,6 +40,12 @@ public class OrderHistoryFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<Order> mOrderList = new ArrayList<>();
     private SPManipulation mSPManipulation;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Order History");
+    }
 
     @Nullable
     @Override

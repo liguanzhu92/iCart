@@ -2,17 +2,13 @@ package com.example.guanzhuli.icart.data.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Category;
 import com.example.guanzhuli.icart.utils.AppController;

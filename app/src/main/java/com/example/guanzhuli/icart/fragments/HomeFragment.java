@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,6 +27,13 @@ public class HomeFragment extends Fragment {
             R.drawable.page2,
             R.drawable.page3,
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("iCart");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -46,6 +54,7 @@ public class HomeFragment extends Fragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mTabLayout.setScrollPosition(position, 0, true);
                 mTabLayout.setSelected(true);
+                mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
             }
 
             @Override
@@ -58,8 +67,20 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         return view;
     }
+
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

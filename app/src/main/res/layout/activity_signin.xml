@@ -101,7 +101,7 @@
             android:layout_gravity="center"
             android:id="@+id/button_fb_sign_in"
             android:text="Connect with Facebook"
-            android:textColor="#fff"
+            android:textColor="@color/icons"
             android:fontFamily="sans-serif-black"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"

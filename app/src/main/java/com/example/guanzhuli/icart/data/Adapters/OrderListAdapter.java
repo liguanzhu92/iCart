@@ -37,8 +37,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderContentHolder>{
     @Override
     public void onBindViewHolder(OrderContentHolder holder, int position) {
         holder.mTextOrderId.setText("Order ID: " + mOrderList.get(position).getOrderId());
-        holder.mTextName.setText("Item Name: " + mOrderList.get(position).getName());
-        holder.mTextQuant.setText("Quantity: " + Integer.toString(mOrderList.get(position).getQuant()));
+        holder.mTextName.setText(mOrderList.get(position).getName());
+        holder.mTextQuant.setText(Integer.toString(mOrderList.get(position).getQuant()));
         holder.mTextPrice.setText("Total:" + Double.toString(mOrderList.get(position).getPrice()));
         holder.mTextStatus.setText("Status: " + Integer.toString(mOrderList.get(position).getStatus()));
         // set image listener -  view order details;
@@ -55,8 +55,8 @@ class OrderContentHolder extends RecyclerView.ViewHolder {
     ImageView mImage;
     public OrderContentHolder(View itemView) {
         super(itemView);
-        mTextName = (TextView) itemView.findViewById(R.id.order_list_id);
-        mTextOrderId = (TextView) itemView.findViewById(R.id.order_list_name);
+        mTextName = (TextView) itemView.findViewById(R.id.order_list_name);
+        mTextOrderId = (TextView) itemView.findViewById(R.id.order_list_id);
         mTextQuant = (TextView) itemView.findViewById(R.id.order_list_quant);
         mTextPrice = (TextView) itemView.findViewById(R.id.order_list_price);
         mTextStatus = (TextView) itemView.findViewById(R.id.order_list_status);

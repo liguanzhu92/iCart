@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.TopSellerAdapter;
 import com.example.guanzhuli.icart.data.TopSeller;

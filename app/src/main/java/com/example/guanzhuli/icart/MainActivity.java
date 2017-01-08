@@ -19,7 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import com.example.guanzhuli.icart.Fragment.*;
+import com.example.guanzhuli.icart.fragments.*;
 import com.example.guanzhuli.icart.data.SPManipulation;
 import com.facebook.login.LoginManager;
 

@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

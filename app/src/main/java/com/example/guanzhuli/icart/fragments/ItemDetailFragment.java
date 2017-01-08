@@ -1,12 +1,10 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.CheckoutActivity;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.DBManipulation;
@@ -65,6 +62,12 @@ public class ItemDetailFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Product Detail");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         mTextId = (TextView) view.findViewById(R.id.item_details_id);
@@ -78,8 +81,8 @@ public class ItemDetailFragment extends Fragment {
     }
 
     private void setTextViewData() {
-        mTextId.setText("Item ID: " + mItem.getId());
-        mTextName.setText("Item Name: " + mItem.getName());
+        mTextId.setText("SKU: " + mItem.getId());
+        mTextName.setText(mItem.getName());
         mTextDescription.setText("Description: " + mItem.getDescription());
         mTextPrice.setText("Price: " + Double.toString(mItem.getPrice()));
         mImageView.setImageUrl(mItem.getImageUrl(), mImageLoader);

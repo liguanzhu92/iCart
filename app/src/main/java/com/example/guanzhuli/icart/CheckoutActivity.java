@@ -2,7 +2,7 @@ package com.example.guanzhuli.icart;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.guanzhuli.icart.Fragment.CheckoutFragment;
+import com.example.guanzhuli.icart.fragments.CheckoutFragment;
 
 public class CheckoutActivity extends AppCompatActivity {
  /*   private static final String CHECKOUT_URL =

@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 
 import android.content.Intent;
@@ -26,6 +26,11 @@ public class HelpFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Help");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

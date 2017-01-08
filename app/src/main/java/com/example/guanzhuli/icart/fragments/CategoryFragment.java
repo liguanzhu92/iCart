@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 
 import android.widget.*;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
@@ -44,6 +42,12 @@ public class CategoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Category");
     }
 
     @Override

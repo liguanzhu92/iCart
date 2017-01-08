@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -67,9 +67,15 @@ public class CheckoutFragment extends Fragment {
     private ShoppingCartList mCartList;
     private CheckoutItemAdapter adapter;
     private List<Item> mItemList = new ArrayList<>();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Checkout");
+    }
+
     @Nullable
     @Override
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
         // start paypal service

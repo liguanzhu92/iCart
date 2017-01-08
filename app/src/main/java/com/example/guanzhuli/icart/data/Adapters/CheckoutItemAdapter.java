@@ -1,8 +1,6 @@
 package com.example.guanzhuli.icart.data.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.utils.AppController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,10 +51,10 @@ public class CheckoutItemAdapter extends RecyclerView.Adapter<ItemHolder> {
 
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
-        holder.mTextId.setText("Item ID: " + checkoutItem.get(position).getId());
+        holder.mTextId.setText(checkoutItem.get(position).getId());
         holder.mTextQuant.setText(Integer.toString(checkoutItem.get(position).getQuantity()));
         holder.mTextName.setText(checkoutItem.get(position).getName());
-        holder.mTextPrice.setText("SubTotal: " + Double.toString(
+        holder.mTextPrice.setText(Double.toString(
                 checkoutItem.get(position).getPrice() * checkoutItem.get(position).getQuantity()));
         holder.mImage.setImageUrl(checkoutItem.get(position).getImageUrl(), mImageLoader);
         holder.mButtonDelete.setVisibility(View.INVISIBLE);

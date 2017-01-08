@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,11 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
@@ -27,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.guanzhuli.icart.Fragment.CategoryFragment.CATEGORY_ID_KEY;
+import static com.example.guanzhuli.icart.fragments.CategoryFragment.CATEGORY_ID_KEY;
 
 public class SubCategoryFragment extends Fragment {
     private AppController mController;
@@ -44,8 +42,9 @@ public class SubCategoryFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Category");
     }
 
     @Override

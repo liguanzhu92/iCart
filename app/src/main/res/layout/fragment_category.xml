@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.example.guanzhuli.icart.Fragment.CategoryFragment">
+             tools:context="com.example.guanzhuli.icart.fragments.CategoryFragment">
 
     <ListView
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.Fragment;
+package com.example.guanzhuli.icart.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,6 +37,12 @@ public class ProfileFragment extends Fragment {
         //mobile = new SPManipulation().getMobile(getContext());
         mRequestQueue = Volley.newRequestQueue(getContext());
         mSPManipulation = SPManipulation.getInstance(getContext());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Profile");
     }
 
     @Override

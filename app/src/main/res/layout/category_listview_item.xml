@@ -5,8 +5,9 @@
               app:cardUseCompatPadding="true"
               android:backgroundTint="@color/cardviewBackground"
               android:layout_width="match_parent"
+              android:minHeight="120dp"
               android:id="@+id/list_view_category_item"
-              android:layout_height="150dp">
+              android:layout_height="wrap_content">
     <com.android.volley.toolbox.NetworkImageView
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"

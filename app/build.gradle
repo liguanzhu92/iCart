@@ -28,6 +28,7 @@ dependencies {
     })
 
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.15.1'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:design:25.1.0'

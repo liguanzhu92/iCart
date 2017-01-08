@@ -6,11 +6,16 @@
               android:backgroundTint="@color/cardviewBackground"
               android:layout_width="match_parent"
               android:id="@+id/list_view_category_item"
-              android:layout_height="100dp">
+              android:layout_height="150dp">
     <com.android.volley.toolbox.NetworkImageView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/item_image_sample"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:id="@+id/list_view_category_img"/>
@@ -19,14 +24,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="6dp"
-            android:layout_weight="3">
+            android:layout_weight="5">
         <TextView
+                android:layout_marginTop="8dp"
+                android:text="Category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="6dp"
                 android:id="@+id/list_view_category_text"
                 android:textSize="16sp"/>
         <TextView
+                android:text="Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="6dp"

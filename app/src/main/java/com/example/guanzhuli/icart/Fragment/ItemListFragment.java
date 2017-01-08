@@ -22,6 +22,7 @@ import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter;
 import com.example.guanzhuli.icart.data.Adapters.ItemListAdapter;
 import com.example.guanzhuli.icart.data.Item;
+import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +36,6 @@ public class ItemListFragment extends Fragment {
     public static final String ITEMLIST_URL =
             "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_product.php?Id=";
     public static final String ITEM_ID_KEY = "itemID";
-    private RequestQueue mRequestQueue;
     private ImageButton mButtonListView, mButtonGridView;
     RecyclerView recyclerView;
     List<Item> itemList;
@@ -47,7 +47,6 @@ public class ItemListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mRequestQueue = Volley.newRequestQueue(getContext());
     }
 
     @Override
@@ -100,7 +99,7 @@ public class ItemListFragment extends Fragment {
                 Toast.makeText(getContext(), "network error!", Toast.LENGTH_LONG).show();
             }
         });
-        mRequestQueue.add(stringRequest);
+        AppController.getInstance().addToRequestQueue(stringRequest);
         return view;
     }
 

@@ -19,6 +19,7 @@ import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.OrderListAdapter;
 import com.example.guanzhuli.icart.data.Order;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +40,6 @@ public class OrderHistoryFragment extends Fragment {
     private static final String ORDER_STATUS = "OrderStatus";
 
     private RecyclerView mRecyclerView;
-    private RequestQueue mRequestQueue;
     private List<Order> mOrderList = new ArrayList<>();
     private SPManipulation mSPManipulation;
 
@@ -54,7 +54,7 @@ public class OrderHistoryFragment extends Fragment {
     }
 
     private void getOrderList() {
-        mRequestQueue = Volley.newRequestQueue(getContext());
+        // mRequestQueue = Volley.newRequestQueue(getContext());
         //String url = ORDER_URL + "5555555";
         String url = ORDER_URL + mSPManipulation.getMobile();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -89,6 +89,6 @@ public class OrderHistoryFragment extends Fragment {
                 Toast.makeText(getContext(), "network error!", Toast.LENGTH_LONG).show();
             }
         });
-        mRequestQueue.add(stringRequest);
+        AppController.getInstance().addToRequestQueue(stringRequest);
     }
 }

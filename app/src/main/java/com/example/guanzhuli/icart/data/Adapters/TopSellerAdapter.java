@@ -14,6 +14,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.TopSeller;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.List;
 
@@ -21,7 +22,6 @@ import java.util.List;
  * Created by Guanzhu Li on 1/4/2017.
  */
 public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerHolder>{
-    private RequestQueue mRequestQueue;
     private Context mContext;
     private LayoutInflater inflater;
     private ImageLoader mImageLoader;
@@ -29,7 +29,8 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerHolder>{
 
     public TopSellerAdapter(Context context, List<TopSeller> objects) {
         this.mContext = context;
-        mRequestQueue = Volley.newRequestQueue(context);
+        mImageLoader = AppController.getInstance().getImageLoader();
+/*        mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -38,7 +39,7 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerHolder>{
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
         inflater = LayoutInflater.from(mContext);
         mSellerList = objects;
     }

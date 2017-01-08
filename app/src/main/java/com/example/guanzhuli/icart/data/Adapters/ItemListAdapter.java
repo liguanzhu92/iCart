@@ -18,6 +18,8 @@ import com.example.guanzhuli.icart.Fragment.ItemDetailFragment;
 import com.example.guanzhuli.icart.Fragment.ItemListFragment;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Item;
+import com.example.guanzhuli.icart.utils.AppController;
+
 import java.util.List;
 
 import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
@@ -26,14 +28,14 @@ import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
  * Created by Guanzhu Li on 1/1/2017.
  */
 public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
-    private RequestQueue mRequestQueue;
     Context mContext;
     LayoutInflater inflater;
     ImageLoader mImageLoader;
     List<Item> mItemArrayList;
     public ItemListAdapter(Context context, List<Item> objects) {
         this.mContext = context;
-        mRequestQueue = Volley.newRequestQueue(context);
+        mImageLoader = AppController.getInstance().getImageLoader();
+/*        mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -42,7 +44,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
         inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
     }

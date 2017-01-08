@@ -28,100 +28,21 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent" android:layout_height="wrap_content">
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent" android:layout_height="wrap_content">
-                <TextView
-                        android:layout_weight="2"
-                        android:paddingTop="@dimen/activity_vertical_margin"
-                        android:paddingBottom="@dimen/activity_vertical_margin"
-                        android:text="CartNumber"
-                        android:id="@+id/textview1"
-                        android:layout_width="0dp" android:layout_height="wrap_content"/>
-                <EditText
-                        android:layout_weight="5"
-                        android:layout_width="0dp"
-                        android:hint="Card Number"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/editText3"/>
-
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent" android:layout_height="wrap_content">
-                <TextView
-                        android:layout_weight="2"
-                        android:paddingTop="@dimen/activity_vertical_margin"
-                        android:paddingBottom="@dimen/activity_vertical_margin"
-                        android:text="Holder Name"
-                        android:layout_width="0dp" android:layout_height="wrap_content"/>
-                <EditText
-                        android:layout_weight="5"
-                        android:layout_width="0dp"
-                        android:hint="Holder Name"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent" android:layout_height="wrap_content">
-                <TextView
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/activity_vertical_margin"
-                        android:paddingBottom="@dimen/activity_vertical_margin"
-                        android:text="CVV"/>
-                <EditText
-                        android:layout_weight="5"
-                        android:layout_width="0dp"
-                        android:hint="CVV"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent" android:layout_height="wrap_content">
-                <TextView
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/activity_vertical_margin"
-                        android:paddingBottom="@dimen/activity_vertical_margin"
-                        android:text="Expire Date:"/>
-                <EditText
-                        android:layout_weight="5"
-                        android:layout_width="0dp"
-                        android:hint="Expire Date"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
             <Button
+                    android:id="@+id/checkout_paypal"
                     android:textColor="@color/icons"
-                    android:backgroundTint="@color/colorButton"
-                    android:id="@+id/checkout_confirm"
-                    android:text="Confirm"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:backgroundTint="#002d8c"
+                    android:text="Pay with PayPal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             <Button
                     android:textColor="@color/icons"
                     android:backgroundTint="@color/colorButton"
                     android:id="@+id/checkout_cancel"
                     android:text="Cancel"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

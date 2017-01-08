@@ -1,6 +1,7 @@
 package com.example.guanzhuli.icart.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
+import com.example.guanzhuli.icart.CheckoutActivity;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.example.guanzhuli.icart.data.ShoppingCartList;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
 
@@ -35,15 +39,18 @@ public class ItemDetailFragment extends Fragment {
     private int maxQuantity;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    private AppController mController;
     private DBManipulation mDBManipulation;
     private SPManipulation mSPManipulation;
     private Item mItem;
+    private ShoppingCartList mCartList;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mRequestQueue = Volley.newRequestQueue(getContext());
-        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
+        mController = AppController.getInstance();
+        mRequestQueue = mController.getRequestQueue();
+/*        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
                 mCache.put(url, bitmap);
@@ -51,8 +58,10 @@ public class ItemDetailFragment extends Fragment {
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
+        mImageLoader = mController.getImageLoader();
         mSPManipulation = SPManipulation.getInstance(context);
+        mCartList = ShoppingCartList.getInstance();
     }
 
     @Override
@@ -135,8 +144,14 @@ public class ItemDetailFragment extends Fragment {
         mButtonChceckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
+                mCartList.add(mItem);
+                Intent i = new Intent(getContext(), CheckoutActivity.class);
+                i.putExtra("SingleItem", true);
+                startActivity(i);
             }
         });
     }
+
+
 }

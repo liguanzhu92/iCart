@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
+import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,14 +30,14 @@ public class CategoryFragment extends Fragment {
 
     public static final String CATEGORY_REQUEST_URL
             = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php";
-    private RequestQueue mRequestQueue;
+    //private RequestQueue mRequestQueue;
 
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mRequestQueue = Volley.newRequestQueue(getContext());
+        //mRequestQueue = Volley.newRequestQueue(getContext());
     }
 
     @Override
@@ -98,7 +99,7 @@ public class CategoryFragment extends Fragment {
             }
         });
         // Add the request to the RequestQueue.
-        mRequestQueue.add(stringRequest);
+        AppController.getInstance().addToRequestQueue(stringRequest);
         return v;
     }
 }

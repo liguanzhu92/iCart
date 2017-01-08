@@ -18,6 +18,7 @@ import com.example.guanzhuli.icart.Fragment.ItemDetailFragment;
 import com.example.guanzhuli.icart.Fragment.ItemListFragment;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Item;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.List;
 
@@ -31,7 +32,6 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
     public static final String ITEM_PRICE = "price";
     public static final String ITEM_DES = "description";
     public static final String ITEM_IMAGEURL = "image_url";
-    private RequestQueue mRequestQueue;
     private Context mContext;
     private LayoutInflater inflater;
     private ImageLoader mImageLoader;
@@ -39,7 +39,8 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
 
     public ItemGridAdapter(Context context, List<Item> objects) {
         this.mContext = context;
-        mRequestQueue = Volley.newRequestQueue(context);
+        mImageLoader = AppController.getInstance().getImageLoader();
+/*        mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -48,7 +49,7 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
         inflater = LayoutInflater.from(mContext);
         mItemArrayList = objects;
     }

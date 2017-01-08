@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
+import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,8 @@ import java.util.List;
 import static com.example.guanzhuli.icart.Fragment.CategoryFragment.CATEGORY_ID_KEY;
 
 public class SubCategoryFragment extends Fragment {
-    private RequestQueue mRequestQueue;
+    private AppController mController;
+    // private RequestQueue mRequestQueue;
     public static final String SUB_CATEGORY_URL =
             "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_sub_category.php?Id=";
     public static final String SUBCATEGORY_ID_KEY = "subcategoryID";
@@ -37,7 +39,8 @@ public class SubCategoryFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mRequestQueue = Volley.newRequestQueue(getContext());
+        mController = AppController.getInstance();
+        // mRequestQueue = Volley.newRequestQueue(getContext());
     }
 
     @Override
@@ -105,7 +108,7 @@ public class SubCategoryFragment extends Fragment {
                 Toast.makeText(getContext(), "network error!", Toast.LENGTH_SHORT).show();
             }
         });
-        mRequestQueue.add(stringRequest);
+        mController.addToRequestQueue(stringRequest);
         return view;
     }
 

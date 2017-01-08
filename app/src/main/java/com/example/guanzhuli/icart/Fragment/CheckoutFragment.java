@@ -1,6 +1,7 @@
 package com.example.guanzhuli.icart.Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,20 +23,39 @@ import com.example.guanzhuli.icart.CartActivity;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.CheckoutItemAdapter;
 import com.example.guanzhuli.icart.data.DBManipulation;
+import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
 import com.example.guanzhuli.icart.data.ShoppingCartList;
+import com.paypal.android.sdk.payments.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Guanzhu Li on 1/4/2017.
  */
 public class CheckoutFragment extends Fragment {
+    private static final String TAG = "iCartPayment";
+    //private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
+
+    // note that these credentials will differ between live & sandbox environments.
+    private static final String CONFIG_CLIENT_ID = "ATmK2McmbeWIC6UGRZw7gioRz2xZbBiCuUWN_1d8WK38OIeX6vXFWBTqjmwJaYXkRnZsVbQCe7VAgnO3";
+    private static final int REQUEST_CODE_PAYMENT = 1;
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(CONFIG_ENVIRONMENT)
+            .clientId(CONFIG_CLIENT_ID)
+            // The following are only used in PayPalFuturePaymentActivity.
+            .merchantName("Example Merchant")
+            .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
+            .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
+
     private static final String CHECKOUT_URL =
             "http://rjtmobile.com/ansari/shopingcart/androidapp/orders.php?&item_id=";
     private Button mButtonConfirm, mButtonCancel;
@@ -44,15 +64,28 @@ public class CheckoutFragment extends Fragment {
     private DBManipulation mDBManipulation;
     private SPManipulation mSPManipulation;
     private String mobile;
-    private ShoppingCartList mItemList;
+    private ShoppingCartList mCartList;
+    private CheckoutItemAdapter adapter;
+    private List<Item> mItemList = new ArrayList<>();
     @Nullable
     @Override
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
-        mItemList = ShoppingCartList.getInstance();
+        // start paypal service
+        Intent intent = new Intent(getContext(), PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        getActivity().startService(intent);
         //initialItemList();
+        mCartList = ShoppingCartList.getInstance();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.checkout_items_container);
-        CheckoutItemAdapter adapter = new CheckoutItemAdapter(mItemList, getContext());
+        if (getActivity().getIntent().getBooleanExtra("SingleItem", false)) {
+            mItemList.add(mCartList.get(mCartList.size()-1));
+            mCartList.remove(mCartList.size()-1);
+        } else {
+            mItemList = mCartList;
+        }
+        adapter = new CheckoutItemAdapter(mItemList, getContext());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -67,15 +100,105 @@ public class CheckoutFragment extends Fragment {
         });
         mSPManipulation = SPManipulation.getInstance(getContext());
         mobile = mSPManipulation.getMobile();
-        // mobile="5555555";
-        mButtonConfirm = (Button) view.findViewById(R.id.checkout_confirm);
+        mButtonConfirm = (Button) view.findViewById(R.id.checkout_paypal);
         mButtonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerOrder();
+                payOrder();
             }
         });
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().stopService(new Intent(getContext(), PayPalService.class));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PAYMENT) {
+            if (resultCode == getActivity().RESULT_OK) {
+                PaymentConfirmation confirm =
+                        data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+                if (confirm != null) {
+                    try {
+                        Log.i(TAG, confirm.toJSONObject().toString(4));
+                        Log.i(TAG, confirm.getPayment().toJSONObject().toString(4));
+                        /**
+                         *  TODO: send 'confirm' (and possibly confirm.getPayment() to your server for verification
+                         * or consent completion.
+                         * See https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/
+                         * for more details.
+                         *
+                         * For sample mobile backend interactions, see
+                         * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
+                         */
+                        registerOrder();
+                    } catch (JSONException e) {
+                        Log.e(TAG, "an extremely unlikely failure occurred: ", e);
+                    }
+                }
+            } else if (resultCode == getActivity().RESULT_CANCELED) {
+                Log.i(TAG, "The user canceled.");
+            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+                Log.i(
+                        TAG,
+                        "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+            }
+        }
+    }
+
+    private void payOrder() {
+        /*
+         * PAYMENT_INTENT_SALE will cause the payment to complete immediately.
+         * Change PAYMENT_INTENT_SALE to
+         *   - PAYMENT_INTENT_AUTHORIZE to only authorize payment and capture funds later.
+         *   - PAYMENT_INTENT_ORDER to create a payment for authorization and capture
+         *     later via calls from your server.
+         *
+         * Also, to include additional payment details and an item list, see getStuffToBuy() below.
+         */
+        PayPalPayment thingToBuy = getStuffToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
+
+        /*
+         * See getStuffToBuy(..) for examples of some available payment options.
+         */
+
+        Intent intent = new Intent(getContext(), PaymentActivity.class);
+
+        // send the same configuration for restart resiliency
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+    }
+
+    private PayPalPayment getStuffToBuy(String paymentIntent) {
+
+        //--- include an item list, payment amount details
+        PayPalItem[] items = new PayPalItem[mItemList.size()];
+        for (int i = 0; i <  mItemList.size(); i++) {
+            items[i] = new PayPalItem(mItemList.get(i).getName(),
+                    mItemList.get(i).getQuantity(),
+                    new BigDecimal(mItemList.get(i).getPrice()),
+                    "HKD",
+                    mItemList.get(i).getId());
+        }
+        BigDecimal subtotal = PayPalItem.getItemTotal(items);
+        BigDecimal shipping = new BigDecimal("0.00");
+        BigDecimal tax = new BigDecimal("0.00");
+        PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
+        BigDecimal amount = subtotal.add(shipping).add(tax);
+        PayPalPayment payment = new PayPalPayment(amount, "HKD", "iCart", paymentIntent);
+        payment.items(items).paymentDetails(paymentDetails);
+
+        //--- set other optional fields like invoice_number, custom field, and soft_descriptor
+        payment.custom("This is text that will be associated with the payment that the app can use.");
+
+        return payment;
     }
 
     private void registerOrder(){

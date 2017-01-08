@@ -15,6 +15,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Category;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.List;
 
@@ -22,14 +23,15 @@ import java.util.List;
  * Created by Guanzhu Li on 1/1/2017.
  */
 public class CategoryAdapter extends ArrayAdapter<Category> {
-    private RequestQueue mRequestQueue;
+
     Context mContext;
     ImageLoader mImageLoader;
 
     public CategoryAdapter(Context context, int resource, List<Category> objects) {
         super(context, resource, objects);
-        mRequestQueue = Volley.newRequestQueue(getContext());
         mContext = context;
+        mImageLoader = AppController.getInstance().getImageLoader();
+/*        mRequestQueue = Volley.newRequestQueue(getContext());
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -38,7 +40,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
     }
 
     private class ViewHolder {

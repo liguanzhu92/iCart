@@ -19,6 +19,7 @@ import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
     public CartListAdapter(Context context, List<Item> objects, Activity activity) {
         this.mActivity = activity;
         this.mContext = context;
-        mRequestQueue = Volley.newRequestQueue(context);
+/*        mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -46,7 +47,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
+        });*/
+        mImageLoader = AppController.getInstance().getImageLoader();
+        mRequestQueue = AppController.getInstance().getRequestQueue();
         inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
         mSPManipulation = SPManipulation.getInstance(context);

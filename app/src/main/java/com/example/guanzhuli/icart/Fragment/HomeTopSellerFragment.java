@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Adapters.TopSellerAdapter;
 import com.example.guanzhuli.icart.data.TopSeller;
+import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,13 +38,14 @@ public class HomeTopSellerFragment extends Fragment {
     private static final String TOPSELLER_IMAGE = "SellerLogo";
     private List<TopSeller> mTopSellers = new ArrayList<>();
     private RecyclerView recyclerView;
-    private RequestQueue mRequestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.tablayout_home, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_container);
-        mRequestQueue = Volley.newRequestQueue(getContext());
+        //mRequestQueue = mController.getRequestQueue();
+        //mRequestQueue = Volley.newRequestQueue(getContext());
+
         // request the value
         StringRequest stringRequest = new StringRequest(Request.Method.GET, TOPSELLER_URL,
                 new Response.Listener<String>() {
@@ -77,7 +79,7 @@ public class HomeTopSellerFragment extends Fragment {
                 Toast.makeText(getContext(), "network error!", Toast.LENGTH_LONG).show();
             }
         });
-        mRequestQueue.add(stringRequest);
+        AppController.getInstance().addToRequestQueue(stringRequest);
         return view;
     }
 }

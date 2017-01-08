@@ -16,6 +16,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.R;
 import com.example.guanzhuli.icart.data.Item;
+import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ import java.util.List;
  * Created by Guanzhu Li on 1/4/2017.
  */
 public class CheckoutItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-    private RequestQueue mRequestQueue;
     private List<Item> checkoutItem;
     private Context mContext;
     private LayoutInflater inflater;
@@ -33,7 +33,8 @@ public class CheckoutItemAdapter extends RecyclerView.Adapter<ItemHolder> {
     public CheckoutItemAdapter(List<Item> checkoutItem, Context context) {
         this.checkoutItem = checkoutItem;
         this.mContext = context;
-        mRequestQueue = Volley.newRequestQueue(context);
+        mImageLoader = AppController.getInstance().getImageLoader();
+/*        mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
             public void putBitmap(String url, Bitmap bitmap) {
@@ -42,8 +43,8 @@ public class CheckoutItemAdapter extends RecyclerView.Adapter<ItemHolder> {
             public Bitmap getBitmap(String url) {
                 return mCache.get(url);
             }
-        });
-        inflater = LayoutInflater.from(context);
+        });*/
+        inflater = LayoutInflater.from(mContext);
     }
 
     @Override

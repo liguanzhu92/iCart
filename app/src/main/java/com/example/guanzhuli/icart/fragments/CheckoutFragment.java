@@ -21,7 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.CartActivity;
 import com.example.guanzhuli.icart.R;
-import com.example.guanzhuli.icart.data.Adapters.CheckoutItemAdapter;
+import com.example.guanzhuli.icart.adapters.CheckoutItemAdapter;
 import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.data.Item;
 import com.example.guanzhuli.icart.data.SPManipulation;
@@ -86,8 +86,8 @@ public class CheckoutFragment extends Fragment {
         mCartList = ShoppingCartList.getInstance();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.checkout_items_container);
         if (getActivity().getIntent().getBooleanExtra("SingleItem", false)) {
-            mItemList.add(mCartList.get(mCartList.size()-1));
-            mCartList.remove(mCartList.size()-1);
+            Item item = (Item) getActivity().getIntent().getSerializableExtra("CheckoutItem");
+            mItemList.add(item);
         } else {
             mItemList = mCartList;
         }

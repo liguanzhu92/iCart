@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.guanzhuli.icart.CheckoutActivity;
@@ -23,7 +22,7 @@ import com.example.guanzhuli.icart.data.SPManipulation;
 import com.example.guanzhuli.icart.data.ShoppingCartList;
 import com.example.guanzhuli.icart.utils.AppController;
 
-import static com.example.guanzhuli.icart.data.Adapters.ItemGridAdapter.*;
+import static com.example.guanzhuli.icart.adapters.ItemGridAdapter.*;
 
 /**
  * Created by Guanzhu Li on 1/2/2017.
@@ -33,8 +32,6 @@ public class ItemDetailFragment extends Fragment {
     private TextView mTextName, mTextId, mTextPrice, mTextDescription, mTextQuant;
     private ImageButton mButtonQuantAdd, mButtonQuantMinus;
     private Button mButtonAddCart, mButtonChceckout;
-    private int maxQuantity;
-    private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private AppController mController;
     private DBManipulation mDBManipulation;
@@ -46,16 +43,6 @@ public class ItemDetailFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mController = AppController.getInstance();
-        mRequestQueue = mController.getRequestQueue();
-/*        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });*/
         mImageLoader = mController.getImageLoader();
         mSPManipulation = SPManipulation.getInstance(context);
         mCartList = ShoppingCartList.getInstance();
@@ -85,19 +72,19 @@ public class ItemDetailFragment extends Fragment {
         mTextName.setText(mItem.getName());
         mTextDescription.setText("Description: " + mItem.getDescription());
         mTextPrice.setText("Price: " + Double.toString(mItem.getPrice()));
-        mImageView.setImageUrl(mItem.getImageUrl(), mImageLoader);
+        mImageView.setImageUrl(mItem.getImageurl(), mImageLoader);
     }
 
     private void getBundleData() {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            maxQuantity = bundle.getInt(ITEM_QUANTITY);
             mItem = new Item();
+            mItem.setMaxQuant(bundle.getInt(ITEM_QUANTITY));
             mItem.setName(bundle.getString(ITEM_NAME));
             mItem.setId(bundle.getString(ITEM_ID));
             mItem.setDescription(bundle.getString(ITEM_DES));
             mItem.setPrice(bundle.getDouble(ITEM_PRICE));
-            mItem.setImageUrl(bundle.getString(ITEM_IMAGEURL));
+            mItem.setImageurl(bundle.getString(ITEM_IMAGEURL));
         }
     }
 
@@ -112,8 +99,8 @@ public class ItemDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int quant  = Integer.valueOf(mTextQuant.getText().toString());
-                if (quant + 1 > maxQuantity) {
-                    Toast.makeText(getContext(), "Exceed the storage", Toast.LENGTH_SHORT).show();
+                if (quant + 1 > mItem.getMaxQuant()) {
+                    Toast.makeText(getContext(), "Exceeds the stock limit", Toast.LENGTH_SHORT).show();
                 } else {
                     mTextQuant.setText(String.valueOf(quant + 1));
                 }
@@ -135,12 +122,22 @@ public class ItemDetailFragment extends Fragment {
         mButtonAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // add current quant
-                mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
                 String name = mSPManipulation.getName();
                 String mobile = mSPManipulation.getMobile();
                 mDBManipulation = DBManipulation.getInstance(getContext(), name + mobile);
-                mDBManipulation.insert(mItem);
+                // add current quant
+                int curQuant = Integer.valueOf(mTextQuant.getText().toString());
+                int prevQuant = mDBManipulation.select(mItem.getId());
+                if (prevQuant != 0) {
+                    if (prevQuant + curQuant > mItem.getMaxQuant()) {
+                        Toast.makeText(getContext(), "Exceeds the stock limit", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    mDBManipulation.update(mItem.getId(), prevQuant + curQuant);
+                } else {
+                    mItem.setQuantity(curQuant);
+                    mDBManipulation.insert(mItem);
+                }
             }
         });
         mButtonChceckout = (Button) getView().findViewById(R.id.checkout);
@@ -148,9 +145,10 @@ public class ItemDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mItem.setQuantity(Integer.valueOf(mTextQuant.getText().toString()));
-                mCartList.add(mItem);
+                // mCartList.add(mItem);
                 Intent i = new Intent(getContext(), CheckoutActivity.class);
                 i.putExtra("SingleItem", true);
+                i.putExtra("CheckoutItem", mItem);
                 startActivity(i);
             }
         });

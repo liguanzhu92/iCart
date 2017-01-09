@@ -14,7 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.guanzhuli.icart.R;
-import com.example.guanzhuli.icart.data.Adapters.OrderListAdapter;
+import com.example.guanzhuli.icart.adapters.OrderListAdapter;
 import com.example.guanzhuli.icart.data.Order;
 import com.example.guanzhuli.icart.data.SPManipulation;
 import com.example.guanzhuli.icart.utils.AppController;

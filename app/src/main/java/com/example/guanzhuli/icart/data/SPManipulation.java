@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 // name +  email + mobile + pwd;
     // design it as singleton
-public class SPManipulation {
+public class  SPManipulation {
     public static final String PREFS_NAME = "USER";
     public static final String PREFS_KEY_NAME = "NAME";
     public static final String PREFS_KEY_MOBILE = "MOBILE";
@@ -31,6 +31,10 @@ public class SPManipulation {
             mInstance = new SPManipulation(context);
         }
         return mInstance;
+    }
+
+    public boolean hasUserLoggedIn() {
+        return settings.contains(PREFS_KEY_MOBILE);
     }
 
     // using shared preference to store the user mobile and user name

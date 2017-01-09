@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.data.Adapters;
+package com.example.guanzhuli.icart.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,22 +18,17 @@ import com.example.guanzhuli.icart.utils.AppController;
 
 import java.util.List;
 
+import static com.example.guanzhuli.icart.adapters.ItemGridAdapter.*;
+
 /**
  * Created by Guanzhu Li on 1/1/2017.
  */
-public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
-    public static final String ITEM_ID = "id";
-    public static final String ITEM_NAME = "name";
-    public static final String ITEM_QUANTITY = "quantity";
-    public static final String ITEM_PRICE = "price";
-    public static final String ITEM_DES = "description";
-    public static final String ITEM_IMAGEURL = "image_url";
-    private Context mContext;
-    private LayoutInflater inflater;
-    private ImageLoader mImageLoader;
-    private List<Item> mItemArrayList;
-
-    public ItemGridAdapter(Context context, List<Item> objects) {
+public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
+    Context mContext;
+    LayoutInflater inflater;
+    ImageLoader mImageLoader;
+    List<Item> mItemArrayList;
+    public ItemListAdapter(Context context, List<Item> objects) {
         this.mContext = context;
         mImageLoader = AppController.getInstance().getImageLoader();
 /*        mRequestQueue = Volley.newRequestQueue(context);
@@ -46,24 +41,24 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 return mCache.get(url);
             }
         });*/
-        inflater = LayoutInflater.from(mContext);
+        inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
     }
 
     @Override
-    public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.cardview_product_grid, parent, false);
-        GridViewHolder viewHolder = new GridViewHolder(view);
-        return  viewHolder;
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = inflater.inflate(R.layout.cardview_product_list, parent, false);
+        ListViewHolder viewHolder = new ListViewHolder(v);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(GridViewHolder holder, final int position) {
+    public void onBindViewHolder(ListViewHolder holder, final int position) {
         holder.mTextID.setText(mItemArrayList.get(position).getId());
         holder.mTextName.setText(mItemArrayList.get(position).getName());
         holder.mTextPrice.setText(Double.toString(mItemArrayList.get(position).getPrice()));
-        holder.mImageView.setImageUrl(mItemArrayList.get(position).getImageUrl(), mImageLoader);
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+        holder.mNetworkImageView.setImageUrl(mItemArrayList.get(position).getImageurl(), mImageLoader);
+        holder.mNetworkImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ItemDetailFragment itemDetailFragment = new ItemDetailFragment();
@@ -71,14 +66,13 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 bundle.putString(ITEM_ID, mItemArrayList.get(position).getId());
                 bundle.putString(ITEM_NAME, mItemArrayList.get(position).getName());
                 bundle.putString(ITEM_DES, mItemArrayList.get(position).getDescription());
-                bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageUrl());
+                bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageurl());
                 bundle.putInt(ITEM_QUANTITY, mItemArrayList.get(position).getQuantity());
                 bundle.putDouble(ITEM_PRICE, mItemArrayList.get(position).getPrice());
                 itemDetailFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager()
                         .beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in)
                         .replace(R.id.main_fragment_container, itemDetailFragment)
                         .addToBackStack(ItemListFragment.class.getName())
                         .commit();
@@ -91,15 +85,16 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
         return mItemArrayList.size();
     }
 }
-
-class GridViewHolder extends RecyclerView.ViewHolder {
-    NetworkImageView mImageView;
+class ListViewHolder extends RecyclerView.ViewHolder {
+    NetworkImageView mNetworkImageView;
     TextView mTextID, mTextName, mTextPrice;
-    public GridViewHolder(View itemView) {
+    public ListViewHolder(View itemView) {
         super(itemView);
-        mImageView = (NetworkImageView) itemView.findViewById(R.id.item_grid_image);
-        mTextID = (TextView) itemView.findViewById(R.id.item_grid_id);
-        mTextName = (TextView) itemView.findViewById(R.id.item_grid_name);
-        mTextPrice = (TextView) itemView.findViewById(R.id.item_grid_price);
+        mNetworkImageView = (NetworkImageView) itemView.findViewById(R.id.item_list_image);
+        mTextID = (TextView) itemView.findViewById(R.id.item_list_id);
+        mTextName = (TextView) itemView.findViewById(R.id.item_list_name);
+        mTextPrice = (TextView) itemView.findViewById(R.id.item_list_price);
     }
 }
+
+

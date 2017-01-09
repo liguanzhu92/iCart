@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.data.Adapters;
+package com.example.guanzhuli.icart.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.android.volley.RequestQueue;
+import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.guanzhuli.icart.R;
@@ -24,7 +24,7 @@ import java.util.List;
  * Created by Guanzhu Li on 1/3/2017.
  */
 public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
-    private RequestQueue mRequestQueue;
+
     private Context mContext;
     private Activity mActivity;
     private LayoutInflater inflater;
@@ -35,21 +35,13 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
     public CartListAdapter(Context context, List<Item> objects, Activity activity) {
         this.mActivity = activity;
         this.mContext = context;
-/*        mRequestQueue = Volley.newRequestQueue(context);
-        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });*/
         mImageLoader = AppController.getInstance().getImageLoader();
-        mRequestQueue = AppController.getInstance().getRequestQueue();
         inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
         mSPManipulation = SPManipulation.getInstance(context);
+        String name = mSPManipulation.getName();
+        String mobile = mSPManipulation.getMobile();
+        mDBManipulation = DBManipulation.getInstance(mContext, name + mobile);
     }
 
     @Override
@@ -65,12 +57,18 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
         holder.mTextCartquant.setText(Integer.toString(mItemArrayList.get(position).getQuantity()));
         holder.mTextCartName.setText(mItemArrayList.get(position).getName());
         holder.mTextCartPrice.setText(Double.toString(mItemArrayList.get(position).getPrice()));
-        holder.mImage.setImageUrl(mItemArrayList.get(position).getImageUrl(), mImageLoader);
+        holder.mImage.setImageUrl(mItemArrayList.get(position).getImageurl(), mImageLoader);
         holder.mButtonQuantAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int temp = mItemArrayList.get(position).getQuantity();
                 mItemArrayList.get(position).setQuantity(++temp);
+                if (temp > mItemArrayList.get(position).getMaxQuant()) {
+                    Toast.makeText(mContext, "Exceeds the stock limit", Toast.LENGTH_LONG ).show();
+                    return;
+                }
+                mDBManipulation.update(mItemArrayList.get(position).getId(), temp);
+                notifyItemChanged(position, mItemArrayList);
                 holder.mTextCartquant.setText(Integer.toString(temp));
                 TextView mTextTotal = (TextView) mActivity.findViewById(R.id.cart_total);
                 double result = Double.parseDouble(mTextTotal.getText().toString());
@@ -90,6 +88,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
                 result -= mItemArrayList.get(position).getPrice();
                 mTextTotal.setText(String.valueOf(result));
                 mItemArrayList.get(position).setQuantity(--temp);
+                mDBManipulation.update(mItemArrayList.get(position).getId(), temp);
+                notifyItemChanged(position, mItemArrayList);
                 holder.mTextCartquant.setText(Integer.toString(temp));
             }
         });
@@ -101,9 +101,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
                 double result = Double.parseDouble(mTextTotal.getText().toString());
                 result -= mItemArrayList.get(position).getQuantity() * mItemArrayList.get(position).getPrice();
                 mTextTotal.setText(String.valueOf(result));
-                String name = mSPManipulation.getName();
-                String mobile = mSPManipulation.getMobile();
-                mDBManipulation = DBManipulation.getInstance(mContext, name + mobile);
                 mDBManipulation.delete(mItemArrayList.get(position).getId());
                 mItemArrayList.remove(position);
                 notifyItemRemoved(position);

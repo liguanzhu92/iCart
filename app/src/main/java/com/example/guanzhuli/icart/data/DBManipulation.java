@@ -35,16 +35,29 @@ public class DBManipulation {
 
     public void insert(Item item) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(mDBHelper.ITEMID, item.id);
-        contentValues.put(mDBHelper.ITEMNAME, item.name);
-        contentValues.put(mDBHelper.IMAGEURL, item.imageUrl);
-        contentValues.put(mDBHelper.QUANTITY, item.quantity);
-        contentValues.put(mDBHelper.PRICE,item.price);
+        contentValues.put(mDBHelper.ITEMID, item.getId());
+        contentValues.put(mDBHelper.ITEMNAME, item.getName());
+        contentValues.put(mDBHelper.IMAGEURL, item.getImageurl());
+        contentValues.put(mDBHelper.QUANTITY, item.getQuantity());
+        contentValues.put(mDBHelper.PRICE, item.getPrice());
         long i = mSQLiteDatabase.insert(mDBHelper.TABLENAME, null, contentValues);
         if (i > -1) {
             Toast.makeText(mContext, "Successfully", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mContext, "Add Failed. Already existed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public int select(String id) {
+        // get quantity
+        Cursor cursor = mSQLiteDatabase.query(mDBHelper.TABLENAME, new String[] {mDBHelper.QUANTITY}, mDBHelper.ITEMID + "=?",
+                new String[] {id }, null, null, null);
+        //Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + mDBHelper.TABLENAME + " where " + mDBHelper.ITEMID + "=?",  new String[] {id});
+        cursor.moveToFirst();
+        if (cursor.getCount() != 0) {
+            return cursor.getInt(cursor.getColumnIndex(mDBHelper.QUANTITY));
+        } else {
+            return 0;
         }
     }
 

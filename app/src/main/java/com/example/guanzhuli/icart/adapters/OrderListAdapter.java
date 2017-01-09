@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.data.Adapters;
+package com.example.guanzhuli.icart.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -40,8 +40,23 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderContentHolder>{
         holder.mTextName.setText(mOrderList.get(position).getName());
         holder.mTextQuant.setText(Integer.toString(mOrderList.get(position).getQuant()));
         holder.mTextPrice.setText("Total:" + Double.toString(mOrderList.get(position).getPrice()));
-        holder.mTextStatus.setText("Status: " + Integer.toString(mOrderList.get(position).getStatus()));
+        holder.mTextStatus.setText("Status: " + parseOrderStatus(mOrderList.get(position).getStatus()));
+        // holder.mTextStatus.setText("Status: " + Integer.toString(mOrderList.get(position).getStatus()));
         // set image listener -  view order details;
+    }
+
+    private String parseOrderStatus(int status) {
+        if (status == 1) {
+            return "Confirm";
+        } else if (status == 2) {
+            return "Dispatch";
+        } else if (status == 3) {
+            return "On the way";
+        }else if (status == 4) {
+            return "Delivered";
+        } else {
+            return "invalid code" ;
+        }
     }
 
     @Override

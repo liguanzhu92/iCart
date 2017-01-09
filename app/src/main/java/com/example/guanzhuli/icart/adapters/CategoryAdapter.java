@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.data.Adapters;
+package com.example.guanzhuli.icart.adapters;
 
 import android.app.Activity;
 import android.content.Context;

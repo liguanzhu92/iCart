@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.guanzhuli.icart.data.SPManipulation;
+import com.example.guanzhuli.icart.utils.AppController;
 import com.facebook.*;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
@@ -34,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button mButtonSignIn;
     private Button mFbButtonSignIn;
     private TextView mTextUsername, mTextPassword, mTextSignUp;
+    private AppController mController;
     private RequestQueue mRequestQueue;
     private SPManipulation mSPManipulation;
 
@@ -43,10 +45,16 @@ public class SignInActivity extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_signin);
         mSPManipulation = SPManipulation.getInstance(this);
-        mRequestQueue = Volley.newRequestQueue(this);
+        mController = AppController.getInstance();
+        mRequestQueue = mController.getRequestQueue();
         mTextUsername = (TextView) findViewById(R.id.Sign_in_username);
         mTextPassword = (TextView) findViewById(R.id.sign_in_password);
         mButtonSignIn = (Button) findViewById(R.id.button_sign_in);
+        if (mSPManipulation.hasUserLoggedIn()) {
+            startActivity(new Intent(SignInActivity.this, MainActivity.class));
+            finish();
+            return;
+        }
         mButtonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +91,7 @@ public class SignInActivity extends AppCompatActivity {
                                         mSPManipulation.saveMobile(mobile);
                                         Intent i = new Intent(SignInActivity.this, MainActivity.class);
                                         startActivity(i);
+                                        finish();
                                     }
                                     return;
                                 } catch (JSONException e) {

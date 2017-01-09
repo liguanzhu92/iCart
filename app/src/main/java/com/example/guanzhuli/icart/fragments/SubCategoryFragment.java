@@ -15,7 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.guanzhuli.icart.R;
-import com.example.guanzhuli.icart.data.Adapters.CategoryAdapter;
+import com.example.guanzhuli.icart.adapters.CategoryAdapter;
 import com.example.guanzhuli.icart.data.Category;
 import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;

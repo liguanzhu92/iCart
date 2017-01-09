@@ -6,76 +6,87 @@ import java.io.Serializable;
  * Created by Guanzhu Li on 12/31/2016.
  */
 public class Item implements Serializable {
-    String id;
-    String name;
-    String imageUrl;
-    String description;
-    int quantity;
-    double price;
+    private String mId;
+    private String mName;
+    private String mImageurl;
+    private String mDescription;
+    private int mQuantity;
+    private double mPrice;
+    private int mMaxQuant;
+
     public Item() {
-
-    }
-    public Item(String id, String name, String imageUrl, String description, int quantity, double price) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     Item(String id, String name, String imageUrl, double price, int quantity) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.quantity = quantity;
+        this.mId = id;
+        this.mName = name;
+        this.mImageurl = imageUrl;
+        this.mPrice = price;
+        this.mQuantity = quantity;
     }
+
+    public Item(String id, String name, String imageUrl, String description, int quantity, double price) {
+        this.mId = id;
+        this.mName = name;
+        this.mImageurl = imageUrl;
+        this.mDescription = description;
+        this.mQuantity = quantity;
+        this.mPrice = price;
+    }
+
+    public void setId(String id) {
+        this.mId = id;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
+    }
+
+    public void setDescription(String description) {
+        this.mDescription = description;
+    }
+
+    public void setPrice(double price) {
+        this.mPrice = price;
+    }
+
+    public void setQuantity(int quantity){
+        this.mQuantity = quantity;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.mImageurl = imageurl;
+    }
+
     public String getId() {
-        return id;
+        return mId;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public double getPrice() {
-        return price;
+        return mPrice;
     }
 
     public int getQuantity(){
-        return quantity;
+        return mQuantity;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageurl() {
+        return mImageurl;
     }
 
+    public int getMaxQuant() {
+        return mMaxQuant;
+    }
+
+    public void setMaxQuant(int maxQuant) {
+        mMaxQuant = maxQuant;
+    }
 }

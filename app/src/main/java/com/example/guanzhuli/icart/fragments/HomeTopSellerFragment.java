@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.guanzhuli.icart.R;
-import com.example.guanzhuli.icart.data.Adapters.TopSellerAdapter;
+import com.example.guanzhuli.icart.adapters.TopSellerAdapter;
 import com.example.guanzhuli.icart.data.TopSeller;
 import com.example.guanzhuli.icart.utils.AppController;
 import org.json.JSONArray;

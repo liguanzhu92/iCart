@@ -1,4 +1,4 @@
-package com.example.guanzhuli.icart.data.Adapters;
+package com.example.guanzhuli.icart.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -56,7 +56,7 @@ public class CheckoutItemAdapter extends RecyclerView.Adapter<ItemHolder> {
         holder.mTextName.setText(checkoutItem.get(position).getName());
         holder.mTextPrice.setText(Double.toString(
                 checkoutItem.get(position).getPrice() * checkoutItem.get(position).getQuantity()));
-        holder.mImage.setImageUrl(checkoutItem.get(position).getImageUrl(), mImageLoader);
+        holder.mImage.setImageUrl(checkoutItem.get(position).getImageurl(), mImageLoader);
         holder.mButtonDelete.setVisibility(View.INVISIBLE);
         holder.mButtonQuantMinus.setVisibility(View.INVISIBLE);
         holder.mButtonQuantAdd.setVisibility(View.INVISIBLE);

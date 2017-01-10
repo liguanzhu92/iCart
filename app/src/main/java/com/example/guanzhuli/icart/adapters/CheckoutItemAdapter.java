@@ -79,7 +79,7 @@ class ItemHolder extends RecyclerView.ViewHolder {
         mImage = (NetworkImageView) itemView.findViewById(R.id.cart_item_image);
         mTextName = (TextView) itemView.findViewById(R.id.cart_item_name);
         mTextId = (TextView) itemView.findViewById(R.id.cart_item_id);
-        mTextQuant = (TextView) itemView.findViewById(R.id.cart_item_quant);
+        mTextQuant = (TextView) itemView.findViewById(R.id.cart_item_number);
         mTextPrice = (TextView) itemView.findViewById(R.id.cart_item_price);
         mButtonQuantAdd = (ImageButton) itemView.findViewById(R.id.cart_quant_add);
         mButtonQuantMinus = (ImageButton) itemView.findViewById(R.id.cart_quant_minus);

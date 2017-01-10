@@ -127,7 +127,7 @@ class CartListViewHolder extends RecyclerView.ViewHolder {
         mImage = (NetworkImageView) itemView.findViewById(R.id.cart_item_image);
         mTextCartName = (TextView) itemView.findViewById(R.id.cart_item_name);
         mTextCartId = (TextView) itemView.findViewById(R.id.cart_item_id);
-        mTextCartquant = (TextView) itemView.findViewById(R.id.cart_item_quant);
+        mTextCartquant = (TextView) itemView.findViewById(R.id.cart_item_number);
         mTextCartPrice = (TextView) itemView.findViewById(R.id.cart_item_price);
         mButtonQuantAdd = (ImageButton) itemView.findViewById(R.id.cart_quant_add);
         mButtonQuantMinus = (ImageButton) itemView.findViewById(R.id.cart_quant_minus);

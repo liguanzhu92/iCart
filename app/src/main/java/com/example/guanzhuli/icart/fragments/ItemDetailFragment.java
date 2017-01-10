@@ -138,6 +138,8 @@ public class ItemDetailFragment extends Fragment {
                     mItem.setQuantity(curQuant);
                     mDBManipulation.insert(mItem);
                 }
+                TextView textAmount = (TextView) getActivity().findViewById(R.id.cart_amount);
+                textAmount.setText(Integer.toString(mDBManipulation.getRecordNumber()));
             }
         });
         mButtonChceckout = (Button) getView().findViewById(R.id.checkout);

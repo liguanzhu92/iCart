@@ -76,7 +76,7 @@
                         app:srcCompat="@drawable/minus_circle"
                         android:background="@null"/>
                 <TextView
-                        android:id="@+id/cart_item_quant"
+                        android:id="@+id/cart_item_number"
                         android:text="1"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"

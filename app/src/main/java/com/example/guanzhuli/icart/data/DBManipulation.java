@@ -16,6 +16,7 @@ public class DBManipulation {
     private DBHelper mDBHelper;
     private SQLiteDatabase mSQLiteDatabase;
     private Context mContext;
+    private int recordNumber;
     private static String mDBName = "";
     private static DBManipulation mInstance;
 
@@ -111,4 +112,17 @@ public class DBManipulation {
         }
         return result;
     }
+
+
+    public int getRecordNumber() {
+        Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + mDBHelper.TABLENAME, null);
+        return cursor.getCount();
+    }
+
+    public void setRecordNumber(int recordNumber) {
+        this.recordNumber = recordNumber;
+    }
+
+
+
 }

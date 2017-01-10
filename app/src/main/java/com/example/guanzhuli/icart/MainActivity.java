@@ -19,13 +19,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.example.guanzhuli.icart.data.DBManipulation;
 import com.example.guanzhuli.icart.fragments.*;
 import com.example.guanzhuli.icart.data.SPManipulation;
 import com.facebook.login.LoginManager;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SPManipulation mSPManipulation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +37,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(i);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,16 +47,28 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
         mSPManipulation = SPManipulation.getInstance(this);
-        TextView name = (TextView) hView.findViewById(R.id.header_username);
-        name.setText(mSPManipulation.getName());
-        TextView email = (TextView) hView.findViewById(R.id.header_email);
-        email.setText(mSPManipulation.getEmail());
+        TextView textName = (TextView) hView.findViewById(R.id.header_username);
+        String name = mSPManipulation.getName();
+        textName.setText(name);
+        TextView textEmail = (TextView) hView.findViewById(R.id.header_email);
+        textEmail.setText(mSPManipulation.getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
 
         if(findViewById(R.id.main_fragment_container) != null) {
             HomeFragment homeFragment = new HomeFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, homeFragment).commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String name = mSPManipulation.getName();
+        String mobile = mSPManipulation.getMobile();
+        int amount = DBManipulation.getInstance(this, name + mobile).getRecordNumber();
+        TextView textAmount = (TextView) findViewById(R.id.cart_amount);
+        textAmount.setText(Integer.toString(amount));
     }
 
     @Override
@@ -86,6 +92,11 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
+        MenuItem item = menu.findItem(R.id.action_cart);
+        Drawable cartIcon = item.getIcon();
+        cartIcon.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_IN);
+        item.setIntent(new Intent(MainActivity.this, CartActivity.class));
         return super.onCreateOptionsMenu(menu);
     }
 

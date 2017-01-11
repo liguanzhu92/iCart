@@ -1,5 +1,6 @@
 package com.example.guanzhuli.icart.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -47,6 +50,7 @@ public class OrderHistoryFragment extends Fragment {
         getActivity().setTitle("Order History");
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class OrderHistoryFragment extends Fragment {
     private void getOrderList() {
         // mRequestQueue = Volley.newRequestQueue(getContext());
         //String url = ORDER_URL + "5555555";
+        mOrderList.clear();
         String url = ORDER_URL + mSPManipulation.getMobile();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -80,10 +85,23 @@ public class OrderHistoryFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } finally {
+/*                            Collections.sort(mOrderList, new Comparator<Order>() {
+                                @Override
+                                public int compare(Order order, Order t1) {
+                                    int id1 = Integer.parseInt(order.getOrderId());
+                                    int id2 = Integer.parseInt(t1.getOrderId());
+                                    if (id1 < id2) return 1;
+                                    else if (id1 == id2) return 0;
+                                    else return -1;
+                                }
+                            });*/
                             final OrderListAdapter adapter = new OrderListAdapter(mOrderList, getContext());
                             mRecyclerView.setAdapter(adapter);
                             mRecyclerView.setHasFixedSize(true);
-                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+                            linearLayoutManager.setStackFromEnd(true);
+                            linearLayoutManager.setReverseLayout(true);
+                            mRecyclerView.setLayoutManager(linearLayoutManager);
                         }
 
                     }

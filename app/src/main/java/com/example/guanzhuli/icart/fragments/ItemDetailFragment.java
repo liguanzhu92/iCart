@@ -79,7 +79,7 @@ public class ItemDetailFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             mItem = new Item();
-            mItem.setMaxQuant(bundle.getInt(ITEM_QUANTITY));
+            mItem.setMaxQuant(bundle.getInt(ITEM_MAXQUANTITY));
             mItem.setName(bundle.getString(ITEM_NAME));
             mItem.setId(bundle.getString(ITEM_ID));
             mItem.setDescription(bundle.getString(ITEM_DES));
@@ -127,7 +127,7 @@ public class ItemDetailFragment extends Fragment {
                 mDBManipulation = DBManipulation.getInstance(getContext(), name + mobile);
                 // add current quant
                 int curQuant = Integer.valueOf(mTextQuant.getText().toString());
-                int prevQuant = mDBManipulation.select(mItem.getId());
+                int prevQuant = mDBManipulation.getQuantity(mItem.getId());
                 if (prevQuant != 0) {
                     if (prevQuant + curQuant > mItem.getMaxQuant()) {
                         Toast.makeText(getContext(), "Exceeds the stock limit", Toast.LENGTH_LONG).show();

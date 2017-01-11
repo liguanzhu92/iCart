@@ -15,6 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.example.guanzhuli.icart.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.google.android.gms.internal.zzir.runOnUiThread;
+
 /**
  * Created by Guanzhu Li on 12/31/2016.
  */
@@ -27,6 +32,7 @@ public class HomeFragment extends Fragment {
             R.drawable.page2,
             R.drawable.page3,
     };
+    private int count = 0;
 
     @Override
     public void onResume() {
@@ -43,12 +49,33 @@ public class HomeFragment extends Fragment {
         mViewTop.setAdapter(new TopPagerAdapter(getContext()));
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(mViewTop, true);
+        Timer timer  = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(count<3){
+                            mViewTop.setCurrentItem(count);
+                            count++;
+                        }else{
+                            count = 0;
+                            mViewTop.setCurrentItem(count);
+                        }
+                    }
+                });
+            }
+        }, 500, 3000);
+
+
         //set up tabs
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

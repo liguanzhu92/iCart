@@ -24,7 +24,7 @@ import java.util.List;
 public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
     public static final String ITEM_ID = "id";
     public static final String ITEM_NAME = "name";
-    public static final String ITEM_QUANTITY = "quantity";
+    public static final String ITEM_MAXQUANTITY = "quantity";
     public static final String ITEM_PRICE = "price";
     public static final String ITEM_DES = "description";
     public static final String ITEM_IMAGEURL = "image_url";
@@ -36,16 +36,6 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
     public ItemGridAdapter(Context context, List<Item> objects) {
         this.mContext = context;
         mImageLoader = AppController.getInstance().getImageLoader();
-/*        mRequestQueue = Volley.newRequestQueue(context);
-        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });*/
         inflater = LayoutInflater.from(mContext);
         mItemArrayList = objects;
     }
@@ -72,13 +62,13 @@ public class ItemGridAdapter extends RecyclerView.Adapter<GridViewHolder> {
                 bundle.putString(ITEM_NAME, mItemArrayList.get(position).getName());
                 bundle.putString(ITEM_DES, mItemArrayList.get(position).getDescription());
                 bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageurl());
-                bundle.putInt(ITEM_QUANTITY, mItemArrayList.get(position).getQuantity());
+                bundle.putInt(ITEM_MAXQUANTITY, mItemArrayList.get(position).getQuantity());
                 bundle.putDouble(ITEM_PRICE, mItemArrayList.get(position).getPrice());
                 itemDetailFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager()
                         .beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.enter_from_left)
                         .replace(R.id.main_fragment_container, itemDetailFragment)
                         .addToBackStack(ItemListFragment.class.getName())
                         .commit();

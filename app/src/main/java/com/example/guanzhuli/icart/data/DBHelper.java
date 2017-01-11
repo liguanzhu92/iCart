@@ -15,6 +15,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     public static final String IMAGEURL = "image_url";
     public static final String QUANTITY = "quantity";
     public static final String PRICE = "price";
+    public static final String MAXQUANT = "max";
     public static final int VERSION = 1;
 
     public DBHelper(Context context, String dbname) {
@@ -26,7 +27,7 @@ public class DBHelper  extends SQLiteOpenHelper {
         Log.e("sqlite", "create table");
         String createTable = " CREATE TABLE " + TABLENAME + "("
                 + ITEMID + " INTEGER PRIMARY KEY," + ITEMNAME + " TEXT,"
-                + IMAGEURL + " TEXT," + QUANTITY + " INTEGER," + PRICE + " DECIMAL(10,2))";
+                + IMAGEURL + " TEXT," + QUANTITY + " INTEGER," + PRICE + " DECIMAL(10,2), " + MAXQUANT + " INTEGER)";
         sqLiteDatabase.execSQL(createTable);
     }
 

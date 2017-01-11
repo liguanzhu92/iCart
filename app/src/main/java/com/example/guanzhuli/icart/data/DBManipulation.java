@@ -41,6 +41,7 @@ public class DBManipulation {
         contentValues.put(mDBHelper.IMAGEURL, item.getImageurl());
         contentValues.put(mDBHelper.QUANTITY, item.getQuantity());
         contentValues.put(mDBHelper.PRICE, item.getPrice());
+        contentValues.put(mDBHelper.MAXQUANT, item.getMaxQuant());
         long i = mSQLiteDatabase.insert(mDBHelper.TABLENAME, null, contentValues);
         if (i > -1) {
             Toast.makeText(mContext, "Successfully", Toast.LENGTH_SHORT).show();
@@ -49,14 +50,27 @@ public class DBManipulation {
         }
     }
 
-    public int select(String id) {
+    public int getQuantity(String id) {
         // get quantity
         Cursor cursor = mSQLiteDatabase.query(mDBHelper.TABLENAME, new String[] {mDBHelper.QUANTITY}, mDBHelper.ITEMID + "=?",
                 new String[] {id }, null, null, null);
-        //Cursor cursor = mSQLiteDatabase.rawQuery("select * from " + mDBHelper.TABLENAME + " where " + mDBHelper.ITEMID + "=?",  new String[] {id});
+        //Cursor cursor = mSQLiteDatabase.rawQuery("getQuantity * from " + mDBHelper.TABLENAME + " where " + mDBHelper.ITEMID + "=?",  new String[] {id});
         cursor.moveToFirst();
         if (cursor.getCount() != 0) {
             return cursor.getInt(cursor.getColumnIndex(mDBHelper.QUANTITY));
+        } else {
+            return 0;
+        }
+    }
+
+    public int getMaxQuantity(String id) {
+        // get max quantity
+        Cursor cursor = mSQLiteDatabase.query(mDBHelper.TABLENAME, new String[] {mDBHelper.MAXQUANT}, mDBHelper.ITEMID + "=?",
+                new String[] {id }, null, null, null);
+        //Cursor cursor = mSQLiteDatabase.rawQuery("getQuantity * from " + mDBHelper.TABLENAME + " where " + mDBHelper.ITEMID + "=?",  new String[] {id});
+        cursor.moveToFirst();
+        if (cursor.getCount() != 0) {
+            return cursor.getInt(cursor.getColumnIndex(mDBHelper.MAXQUANT));
         } else {
             return 0;
         }
@@ -100,9 +114,10 @@ public class DBManipulation {
             String id = cursor.getString(cursor.getColumnIndex(mDBHelper.ITEMID));
             String name = cursor.getString(cursor.getColumnIndex(mDBHelper.ITEMNAME));
             String imageUrl = cursor.getString(cursor.getColumnIndex(mDBHelper.IMAGEURL));
+            int maxQuant = cursor.getInt(cursor.getColumnIndex(mDBHelper.MAXQUANT));
             int quant = cursor.getInt(cursor.getColumnIndex(mDBHelper.QUANTITY));
             double price = cursor.getDouble(cursor.getColumnIndex(mDBHelper.PRICE));
-            Item temp = new Item(id, name,imageUrl, price, quant);
+            Item temp = new Item(id, name,imageUrl, price, maxQuant,quant);
             result.add(temp);
             if (cursor.moveToNext()) {
                 continue;

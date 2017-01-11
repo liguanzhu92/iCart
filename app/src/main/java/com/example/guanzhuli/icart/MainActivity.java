@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
@@ -28,6 +27,7 @@ import com.facebook.login.LoginManager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SPManipulation mSPManipulation;
+    private DBManipulation mDBManipulation;
 
 
     @Override
@@ -130,26 +130,35 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_category:
                 CategoryFragment categoryFragment = new CategoryFragment();
                 transaction.addToBackStack(CategoryFragment.class.getName());
-                transaction.replace(R.id.main_fragment_container, categoryFragment).commit();
+                transaction.replace(R.id.main_fragment_container, categoryFragment)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        .commit();
                 break;
             case R.id.nav_profile:
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.addToBackStack(CategoryFragment.class.getName());
-                transaction.replace(R.id.main_fragment_container, profileFragment).commit();
+                transaction.replace(R.id.main_fragment_container, profileFragment)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        .commit();
                 break;
             case R.id.nav_wallet:
                 break;
             case R.id.nav_order:
                 OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
                 transaction.addToBackStack(OrderHistoryFragment.class.getName());
-                transaction.replace(R.id.main_fragment_container, orderHistoryFragment).commit();
+                transaction.replace(R.id.main_fragment_container, orderHistoryFragment)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        .commit();
+
                 break;
             case R.id.nav_favorite:
                 break;
             case R.id.nav_help:
                 HelpFragment helpFragment = new HelpFragment();
                 transaction.addToBackStack(OrderHistoryFragment.class.getName());
-                transaction.replace(R.id.main_fragment_container, helpFragment).commit();
+                transaction.replace(R.id.main_fragment_container, helpFragment)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        .commit();
                 break;
             case R.id.nav_rate:
                 break;

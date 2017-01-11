@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -67,11 +68,13 @@ public class CheckoutFragment extends Fragment {
     private ShoppingCartList mCartList;
     private CheckoutItemAdapter adapter;
     private List<Item> mItemList = new ArrayList<>();
+    private TextView mTextTotal;
 
     @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle("Checkout");
+
     }
 
     @Nullable
@@ -113,6 +116,9 @@ public class CheckoutFragment extends Fragment {
                 payOrder();
             }
         });
+        // set total
+        mTextTotal = (TextView) view.findViewById(R.id.checkout_total);
+        mTextTotal.setText(String.valueOf(calculateTotal(mItemList)));
         return view;
     }
 
@@ -148,6 +154,7 @@ public class CheckoutFragment extends Fragment {
                 }
             } else if (resultCode == getActivity().RESULT_CANCELED) {
                 Log.i(TAG, "The user canceled.");
+                Toast.makeText(getContext(),"Cancel", Toast.LENGTH_LONG).show();
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
                 Log.i(
                         TAG,
@@ -251,5 +258,13 @@ public class CheckoutFragment extends Fragment {
         mDBManipulation.deleteAll();
         OrderSuccessFragment orderSuccessFragment = new OrderSuccessFragment();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.checkout_fragment_container, orderSuccessFragment).commit();
+    }
+
+    private double calculateTotal(List<Item> itemList) {
+        double result = 0;
+        for (int i = 0; i < itemList.size(); i++) {
+            result += itemList.get(i).getPrice() * itemList.get(i).getQuantity();
+        }
+        return result;
     }
 }

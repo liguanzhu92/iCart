@@ -17,20 +17,21 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    Item(String id, String name, String imageUrl, double price, int quantity) {
+    Item(String id, String name, String imageUrl, double price, int maxQuant, int quantity) {
         this.mId = id;
         this.mName = name;
         this.mImageurl = imageUrl;
         this.mPrice = price;
+        this.mMaxQuant = maxQuant;
         this.mQuantity = quantity;
     }
 
-    public Item(String id, String name, String imageUrl, String description, int quantity, double price) {
+    public Item(String id, String name, String imageUrl, String description, int maxQuant, double price) {
         this.mId = id;
         this.mName = name;
         this.mImageurl = imageUrl;
         this.mDescription = description;
-        this.mQuantity = quantity;
+        this.mMaxQuant = maxQuant;
         this.mPrice = price;
     }
 

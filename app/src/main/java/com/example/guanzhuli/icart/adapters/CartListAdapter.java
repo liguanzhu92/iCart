@@ -62,11 +62,12 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
             @Override
             public void onClick(View view) {
                 int temp = mItemArrayList.get(position).getQuantity();
-                mItemArrayList.get(position).setQuantity(++temp);
+                temp++;
                 if (temp > mItemArrayList.get(position).getMaxQuant()) {
                     Toast.makeText(mContext, "Exceeds the stock limit", Toast.LENGTH_LONG ).show();
                     return;
                 }
+                mItemArrayList.get(position).setQuantity(temp);
                 mDBManipulation.update(mItemArrayList.get(position).getId(), temp);
                 notifyItemChanged(position, mItemArrayList);
                 holder.mTextCartquant.setText(Integer.toString(temp));
@@ -80,14 +81,15 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListViewHolder>{
             @Override
             public void onClick(View view) {
                 int temp = mItemArrayList.get(position).getQuantity();
-                if (temp == 0) {
+                if (temp <= 0) {
                     return;
                 }
+                --temp;
                 TextView mTextTotal = (TextView) mActivity.findViewById(R.id.cart_total);
                 double result = Double.parseDouble(mTextTotal.getText().toString());
                 result -= mItemArrayList.get(position).getPrice();
                 mTextTotal.setText(String.valueOf(result));
-                mItemArrayList.get(position).setQuantity(--temp);
+                mItemArrayList.get(position).setQuantity(temp);
                 mDBManipulation.update(mItemArrayList.get(position).getId(), temp);
                 notifyItemChanged(position, mItemArrayList);
                 holder.mTextCartquant.setText(Integer.toString(temp));

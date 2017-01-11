@@ -31,16 +31,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
     public ItemListAdapter(Context context, List<Item> objects) {
         this.mContext = context;
         mImageLoader = AppController.getInstance().getImageLoader();
-/*        mRequestQueue = Volley.newRequestQueue(context);
-        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });*/
         inflater = LayoutInflater.from(context);
         mItemArrayList = objects;
     }
@@ -67,12 +57,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ListViewHolder>{
                 bundle.putString(ITEM_NAME, mItemArrayList.get(position).getName());
                 bundle.putString(ITEM_DES, mItemArrayList.get(position).getDescription());
                 bundle.putString(ITEM_IMAGEURL, mItemArrayList.get(position).getImageurl());
-                bundle.putInt(ITEM_QUANTITY, mItemArrayList.get(position).getQuantity());
+                bundle.putInt(ITEM_MAXQUANTITY, mItemArrayList.get(position).getMaxQuant());
                 bundle.putDouble(ITEM_PRICE, mItemArrayList.get(position).getPrice());
                 itemDetailFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
                 activity.getSupportFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.main_fragment_container, itemDetailFragment)
                         .addToBackStack(ItemListFragment.class.getName())
                         .commit();

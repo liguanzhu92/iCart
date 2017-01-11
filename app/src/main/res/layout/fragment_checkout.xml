@@ -14,10 +14,113 @@
                 android:text="Checkout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="Name"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="Name"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="Address"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="Address"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="City"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="City"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:text="State"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="State"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="Country"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="Country"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:text="Zip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"/>
+            <EditText
+                    android:hint="Zip Code"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"/>
+
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/checkout_items_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:text="Total: "/>
+            <TextView
+                    android:id="@+id/checkout_total"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <LinearLayout
                 android:orientation="vertical"

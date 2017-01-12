@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                                    android:paddingRight="@dimen/activity_horizontal_margin"
+                                    android:paddingTop="@dimen/activity_vertical_margin"
+                                    android:paddingBottom="@dimen/activity_vertical_margin"
+                                    app:cardUseCompatPadding="true"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+    <LinearLayout
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/arrival_pic"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/item_image_sample"
+                android:layout_height="100dp"/>
+        <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:textSize="10dp"
+                    android:id="@+id/arrival_id"
+                    android:text="ArrivalId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:textSize="20dp"
+                    android:id="@+id/arrival_name"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:text="ArrivalName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/arrival_price"
+                    android:text="ArrivalPrice"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

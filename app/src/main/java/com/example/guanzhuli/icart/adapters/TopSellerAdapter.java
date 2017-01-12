@@ -26,16 +26,6 @@ public class TopSellerAdapter extends RecyclerView.Adapter<TopSellerHolder>{
     public TopSellerAdapter(Context context, List<TopSeller> objects) {
         this.mContext = context;
         mImageLoader = AppController.getInstance().getImageLoader();
-/*        mRequestQueue = Volley.newRequestQueue(context);
-        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
-            private final LruCache<String, Bitmap> mCache = new LruCache<>(10);
-            public void putBitmap(String url, Bitmap bitmap) {
-                mCache.put(url, bitmap);
-            }
-            public Bitmap getBitmap(String url) {
-                return mCache.get(url);
-            }
-        });*/
         inflater = LayoutInflater.from(mContext);
         mSellerList = objects;
     }

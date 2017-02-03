@@ -10,6 +10,8 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical"
+        android:background="#FAFAFA"
+        android:backgroundTint="#FAFAFA"
         tools:context="com.example.guanzhuli.icart.SignUpActivity">
     <!--make it a round view-->
     <ImageView
